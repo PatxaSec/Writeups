@@ -4,15 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "53aa1d1b9a93ebd3",
+        "id": "56f799283c064133",
         "type": "tabs",
         "children": [
           {
-            "id": "3b49e82e8eed67b5",
+            "id": "c554b7658974ce25",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "4. Cryptography/Windows Local Password Attacks.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Windows Local Password Attacks"
             }
           }
         ]
@@ -35,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
@@ -50,7 +58,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
@@ -58,7 +68,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
         ]
@@ -81,6 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "4. Cryptography/Windows Local Password Attacks.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,7 +101,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Windows Local Password Attacks"
             }
           },
           {
@@ -97,9 +112,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "4. Cryptography/Windows Local Password Attacks.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Windows Local Password Attacks"
             }
           },
           {
@@ -110,7 +128,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
@@ -118,7 +138,11 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "4. Cryptography/Windows Local Password Attacks.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Windows Local Password Attacks"
             }
           }
         ]
@@ -138,40 +162,42 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3b49e82e8eed67b5",
+  "active": "4efff444d6029445",
   "lastOpenFiles": [
-    "Cursos/Taller-Pivoting.pdf",
-    "5. Desarrollo/git.md",
-    "Post-Exploiting/TTY.md",
-    "Post-Exploiting/Pivoting_Wireguard.pdf",
-    "Post-Exploiting/Pivoting.md",
-    "IoT/Protocolos.md",
-    "IoT/Ataques.md",
-    "Hackerone/ABB/Imagenes/abb.com.png",
-    "7. Malware Dev/C.md",
-    "6. Scripting/README.md",
-    "6. Scripting/CVE-2024-4577/README.md",
-    "5. Desarrollo/Bash && Regex.md",
-    "writeups/Road to Olympus.md",
-    "7. Malware Dev",
-    "Navaja/PS2 Hardware keyloger.md",
-    "Imágenes/Pasted image 20241005203137.png",
+    "4. Cryptography/Remote Password Attacks.md",
+    "4. Cryptography/Password Mutations.md",
+    "4. Cryptography/Linux Local Password Attacks.md",
+    "4. Cryptography/Cracking Passwords.md",
+    "4. Cryptography/John the Ripper.md",
+    "1. CPTS/4. Post-Explotación/2. Windows Escalada.md",
+    "1. CPTS/4. Post-Explotación/1. Linux Escalada.md",
+    "1. CPTS/3. Explotación web/B. Aplicaciones comunes.md",
+    "1. CPTS/3. Explotación web/A. Ataques WEB.md",
+    "1. CPTS/3. Explotación web/9. Command Injection.md",
+    "1. CPTS/3. Explotación web/8. File Upload.md",
+    "1. CPTS/3. Explotación web/7. File Inclusion.md",
+    "1. CPTS/3. Explotación web/6. XSS.md",
+    "1. CPTS/3. Explotación web/5. Fundamentos de SQLmap.md",
+    "1. CPTS/3. Explotación web/4. Fundamentos de SQLi.md",
+    "1. CPTS/3. Explotación web/3. Login Bruteforce.md",
+    "1. CPTS/3. Explotación web/2. Atacando la web con ffuf.md",
+    "1. CPTS/3. Explotación web/1. Uso de Proxy web.md",
     "1. CPTS/2. Explotación y pivoting/4. Directorio Activo.md",
+    "1. CPTS/2. Explotación y pivoting/3. Pivoting, tunelización y Port-Forwarding.md",
+    "1. CPTS/2. Explotación y pivoting/2. Atacando Servicios comunes.md",
+    "1. CPTS/2. Explotación y pivoting/1. Ataques a contraseñas.md",
+    "1. CPTS/1. Reconocimiento, enumeración y ataque/7. Uso de Metasploit.md",
+    "1. CPTS/1. Reconocimiento, enumeración y ataque/6. Shells & Payloads.md",
+    "1. CPTS/1. Reconocimiento, enumeración y ataque/5. Transferencia de archivos.md",
+    "1. CPTS/1. Reconocimiento, enumeración y ataque/4. Evaluación de vulnerabilidades.md",
+    "8. BLE",
+    "Cursos/Taller-Pivoting.pdf",
+    "Post-Exploiting/Pivoting_Wireguard.pdf",
+    "Hackerone/ABB/Imagenes/abb.com.png",
+    "7. Malware Dev",
+    "Imágenes/Pasted image 20241005203137.png",
     "Cursos/Intro_Pentest_AD.pdf",
-    "Web/3.- Post-Explotación/Pivoting & Tunneling.md",
-    "FootPrinting/2.- Servicios/Infraestructura.md",
     "Navaja",
-    "5. Desarrollo/Docker.md",
-    "Desarrollo/Docker.md",
-    "Web/2.- Explotación/0.- log4shell.md",
-    "Scripting/zshrc funciones && aliases.md",
-    "Scripting/TamperFinder.md",
-    "Scripting/sha2text.md",
-    "FootPrinting/2.- Servicios/Linux Remote management.md",
-    "FootPrinting/2.- Servicios/IMAP.....POP3.md",
-    "FootPrinting/0.- Escaneos/ZenMap.md",
-    "FootPrinting/1.- Enumeración/sqlmap.md",
-    "FootPrinting/2.- Servicios/NFS.md",
     "Imágenes/Pasted image 20240915034803.png",
     "Imágenes/Pasted image 20240915035048.png",
     "Imágenes/Pasted image 20240915035502.png",
@@ -183,7 +209,6 @@
     "writeups/imagenes",
     "writeups",
     "Scripting/maPorts.sh",
-    "Wi-Fi",
-    "Web/3.- Post-Explotación"
+    "Wi-Fi"
   ]
 }
