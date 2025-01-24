@@ -8,35 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "c554b7658974ce25",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "4. Cryptography/Windows Local Password Attacks.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Windows Local Password Attacks"
-            }
-          },
-          {
             "id": "16c953c07ded9af3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1. CPTS/2. Explotación y pivoting/4. Directorio Activo.md",
+                "file": "Wi-Fi/0. Links de interes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4. Directorio Activo"
+              "title": "0. Links de interes"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -179,39 +164,39 @@
   },
   "active": "16c953c07ded9af3",
   "lastOpenFiles": [
-    "4. Cryptography/Remote Password Attacks.md",
-    "4. Cryptography/Password Mutations.md",
-    "4. Cryptography/Linux Local Password Attacks.md",
-    "4. Cryptography/Cracking Passwords.md",
-    "4. Cryptography/John the Ripper.md",
-    "1. CPTS/4. Post-Explotación/2. Windows Escalada.md",
-    "1. CPTS/4. Post-Explotación/1. Linux Escalada.md",
-    "1. CPTS/3. Explotación web/B. Aplicaciones comunes.md",
-    "1. CPTS/3. Explotación web/A. Ataques WEB.md",
-    "1. CPTS/3. Explotación web/9. Command Injection.md",
-    "1. CPTS/3. Explotación web/8. File Upload.md",
-    "1. CPTS/3. Explotación web/7. File Inclusion.md",
-    "1. CPTS/3. Explotación web/6. XSS.md",
-    "1. CPTS/3. Explotación web/5. Fundamentos de SQLmap.md",
-    "1. CPTS/3. Explotación web/4. Fundamentos de SQLi.md",
-    "1. CPTS/3. Explotación web/3. Login Bruteforce.md",
-    "1. CPTS/3. Explotación web/2. Atacando la web con ffuf.md",
-    "1. CPTS/3. Explotación web/1. Uso de Proxy web.md",
-    "1. CPTS/2. Explotación y pivoting/4. Directorio Activo.md",
-    "1. CPTS/2. Explotación y pivoting/3. Pivoting, tunelización y Port-Forwarding.md",
-    "1. CPTS/2. Explotación y pivoting/2. Atacando Servicios comunes.md",
-    "1. CPTS/2. Explotación y pivoting/1. Ataques a contraseñas.md",
-    "1. CPTS/1. Reconocimiento, enumeración y ataque/7. Uso de Metasploit.md",
-    "1. CPTS/1. Reconocimiento, enumeración y ataque/6. Shells & Payloads.md",
-    "1. CPTS/1. Reconocimiento, enumeración y ataque/5. Transferencia de archivos.md",
-    "1. CPTS/1. Reconocimiento, enumeración y ataque/4. Evaluación de vulnerabilidades.md",
-    "8. BLE",
+    "Wi-Fi/1. Drivers y Requisitos.md",
+    "Wi-Fi/0. Links de interes.md",
+    "Web/3.- Post-Explotación/Transferir Archivos.md",
+    "Web/3.- Post-Explotación/Pivoting & Tunneling.md",
+    "Web/2.- Explotación/9.9.3.- GraphQL API.md",
+    "Web/2.- Explotación/9.9.0.- WebSockets.md",
+    "Web/2.- Explotación/9.9- DOM based.md",
+    "Web/2.- Explotación/9.8.- Clickjacking.md",
+    "Web/2.- Explotación/1.- SQLi.md",
+    "Web/2.- Explotación/2.- Auth.md",
+    "Web/2.- Explotación/0.- log4shell.md",
+    "Web/1.- Enumeración/5.- Crawling.md",
+    "Web/1.- Enumeración/4.- Enumerar Hosts Virtuales.md",
+    "Web/1.- Enumeración/3.- Enumeración de infraestructura.md",
+    "Web/1.- Enumeración/2.- Enumeración de Subdominios.md",
+    "Web/1.- Enumeración/1.- Enumeración DNS.md",
+    "Web/2.- Explotación/4.- Command Injection.md",
+    "Web/2.- Explotación/3.- Path Traversal.md",
+    "4. Herramientas/nmap.md",
+    "Tips & Tricks/Pivoting_Wireguard.pdf",
+    "0. Tips & Tricks/Pivoting.md",
+    "0. Tips & Tricks/TTY.md",
+    "Cursos/Intro_Pentest_AD.pdf",
+    "IoT/Protocolos.md",
+    "IoT/Ataques.md",
+    "4. Herramientas/Google Dorking.md",
+    "1. Hacking/1. Reconocimiento, enumeración y ataque/Servicios/SNMP.md",
+    "1. Hacking/1. Reconocimiento, enumeración y ataque/Servicios/SSH.md",
     "Cursos/Taller-Pivoting.pdf",
-    "Post-Exploiting/Pivoting_Wireguard.pdf",
+    "8. BLE",
     "Hackerone/ABB/Imagenes/abb.com.png",
     "7. Malware Dev",
     "Imágenes/Pasted image 20241005203137.png",
-    "Cursos/Intro_Pentest_AD.pdf",
     "Navaja",
     "Imágenes/Pasted image 20240915034803.png",
     "Imágenes/Pasted image 20240915035048.png",
