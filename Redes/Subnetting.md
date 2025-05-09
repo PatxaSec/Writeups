@@ -40,4 +40,4 @@ Una dirección IPv4 de unidifusión como 192.168.1.250 se puede dividir en dos p
 - **Clase B**: utiliza los primeros 16 bits para la parte de red, dejando 16 bits para los ID de host. Los dos bits situados más a la izquierda se establecen en "10".
 - **Clase C**: utiliza los primeros 24 bits para la parte de red, dejando 8 bits para los ID de host. Los tres bits situados más a la izquierda se establecen en "110".
 
-![[Imágenes/20240214111759.png]]
+![image](Imágenes/20240214111759.png)

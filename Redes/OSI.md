@@ -5,7 +5,7 @@ Fuente: [https://concepto.de/modelo-osi/#ixzz8RhzjsFXb](https://concepto.de/mod
 
 ---
 
-![[Imágenes/20240214112024.png]]
+![image](Imágenes/20240214112024.png)
 
 
 - **Capa física.** La capa más baja del modelo, se encarga de la topología de red y las conexiones globales entre el [ordenador](https://concepto.de/computadora/) y la red, refiriéndose tanto al medio físico como a la manera en que la información se transmite. Cumple con las funciones de especificar la información sobre el medio físico (tipos de cable, microondas, etc.), definir la información sobre la tensión [eléctrica](https://concepto.de/electricidad-2/) de la transmisión, las características funcionales de la interfaz de red y garantizar la existencia de una conexión (aunque no la fiabilidad de la misma).

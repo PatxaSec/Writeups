@@ -6,11 +6,11 @@
 xfreerdp /v:10.129.196.240 /u:htb-student /p:HTB_@cademy_stdnt!
 ```
 
-![[Imágenes/20240229091227.png]]
+![image](Imágenes/20240229091227.png)
 
 - create dump file
 
-![[Imágenes/20240229091353.png]]
+![image](Imágenes/20240229091353.png)
 
 
 - crear servidor smb compartido
@@ -19,7 +19,7 @@ xfreerdp /v:10.129.196.240 /u:htb-student /p:HTB_@cademy_stdnt!
 
 - traspasar a maquina local el minidump
 
-![[Imágenes/20240229091256.png]]
+![image](Imágenes/20240229091256.png)
 
 - leer el minidump
 
@@ -27,4 +27,4 @@ xfreerdp /v:10.129.196.240 /u:htb-student /p:HTB_@cademy_stdnt!
 pypykatz lsa minidump lsass.dmp
 ```
 
-![[Imágenes/20240229091922.png]]
+![image](Imágenes/20240229091922.png)
