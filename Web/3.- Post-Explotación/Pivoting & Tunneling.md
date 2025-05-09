@@ -1,4 +1,4 @@
-![image](Imágenes/20240214095829.png)
+![image](../Imágenes/20240214095829.png)
 
 
 ### Ligolo
@@ -33,7 +33,7 @@ agent.exe -connect 10.0.2.5:11601 -ignore-cert
 ```sh
 ./proxy -selfcert
 ```
-![image](Imágenes/20240214101306.png)
+![image](../Imágenes/20240214101306.png)
 ##### añadir la ruta ip a la máquina atacante
 
 ```sh
@@ -47,12 +47,12 @@ listener_add - addr 0.0.0.0:1235 - to 127.0.0.1:8888
 ```
 
 - podremos listar las direcciones con `listener_list`
-![image](Imágenes/20240214101545.png)
+![image](../Imágenes/20240214101545.png)
 
 
 - ahora hay que acordarse de añadir la ip de la máquina pivote y puerto seteado en ligolo
 
-![image](Imágenes/20240214101920.png)
+![image](../Imágenes/20240214101920.png)
 
 
 
