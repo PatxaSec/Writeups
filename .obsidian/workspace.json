@@ -1,0 +1,211 @@
+{
+  "main": {
+    "id": "925f71f30525c9d4",
+    "type": "split",
+    "children": [
+      {
+        "id": "73ebc046526c436f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "22bd6db7399c6b5d",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1e5b834e7e0aac66",
+    "type": "split",
+    "children": [
+      {
+        "id": "4b0f6ec78da246e3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4efff444d6029445",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "3dfdd33f3b67f629",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "6bc05ba6b81197ec",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 441
+  },
+  "right": {
+    "id": "f251d24748b21aa1",
+    "type": "split",
+    "children": [
+      {
+        "id": "4610ce710432eb46",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e1a79aed18f54bfe",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "CAPE/5. Controles de seguridad.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 5. Controles de seguridad"
+            }
+          },
+          {
+            "id": "ab82a73e83723eaa",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "4. Cryptography/Windows Local Password Attacks.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Windows Local Password Attacks"
+            }
+          },
+          {
+            "id": "44ca75c662ddf538",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "643192e93632b21e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "4. Cryptography/Windows Local Password Attacks.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Windows Local Password Attacks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "4efff444d6029445",
+  "lastOpenFiles": [
+    "Writeups/HTB/ProLabs/FullHouse.md",
+    "Writeups/HTB/Machines/Titanic.md",
+    "Writeups/HTB/Machines/DarkCorp.md",
+    "Writeups/HTB/Fortress/Faraday.md",
+    "Writeups/HTB/Fortress/Context.md",
+    "Writeups/HTB/Fortress/AWS.md",
+    "3. Develop/git.md",
+    "PDFs/Taller-Pivoting.pdf",
+    "PDFs/Intro_Pentest_AD.pdf",
+    "PDFs/AD_Attacks.pdf",
+    "PDFs",
+    "Imágenes/20250515104608.png",
+    "Imágenes/20250515104345.png",
+    "Imágenes/20250515104251.png",
+    "Imágenes/20250515103830.png",
+    "Imágenes/20250515103700.png",
+    "Imágenes/20250404122148.png",
+    "Imágenes/20250330001941.png",
+    "Imágenes/20250126001650.png",
+    "Imágenes/20250126001507.png",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/Windows Remote management.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/WinRM.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/SSH.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/SNMP.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/SMTP.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/SMB.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/RDP.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/Oracle TNS.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/NFS.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/MySQL.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/Linux Remote management.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/LSASS.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/LDAP.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/Infraestructura.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/IPMI.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/IMAP.....POP3.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/FTP.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/DNS.md",
+    "1. Hacking Cheaatsheets/3. Explotación web/B. Aplicaciones comunes.md",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios",
+    "1. Hacking Cheaatsheets/4. Post-Explotación",
+    "1. Hacking Cheaatsheets/2. Explotación y pivoting",
+    "1. Hacking Cheaatsheets/3. Explotación web",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque",
+    "1. Hacking Cheaatsheets",
+    "Imágenes/Pasted image 20250515104608.png"
+  ]
+}
