@@ -1,5 +1,5 @@
 
-![[Pasted image 20250214114637.png]]
+![image](Imágenes/20250214114637.png)
 
 
 ---
@@ -31,31 +31,31 @@ Password:
 
 En la `web` tenemos una página que también nos pide `credenciales` sin embargo tenemos la posibilidad de `registrarnos` para despues poder iniciar sesión
 
-![[Pasted image 20250206223253.png]]
+![image](Imágenes/20250206223253.png)
 
 Podemos simplemente registrarnos como el usuario `test` y con la contraseña `test`
 
-![[Pasted image 20250206223325.png]]
+![image](Imágenes/20250206223325.png)
 
 Volvemos al `login` y ahora podemos iniciar sesión con el usuario que hemos creado
 
-![[Pasted image 20250206223403.png]]
+![image](Imágenes/20250206223403.png)
 
 Al iniciar sesión nos pide una `configuración`, esta es de un servidor `SMTP` que recibira las `alertas` del sistema, configuramos nuestro `host` con el puerto `25`
 
-![[Pasted image 20250206223434.png]]
+![image](Imágenes/20250206223434.png)
 
 Ahora se nos permite escoger un `nombre` de servidor de los que vienen por `defecto`
 
-![[Pasted image 20250206223500.png]]
+![image](Imágenes/20250206223500.png)
 
 Sin embargo si interceptamos la petición podemos ver que el `nombre` se gestiona desde `profile` con un parametro `name`, asi que podemos cambiarlo por cualquiera
 
-![[Pasted image 20250206223543.png]]
+![image](Imágenes/20250206223543.png)
 
 Ahora se nos redirige a un campo donde podemos enviar `mensajes`, vienen varios usuarios por defecto, para testear solo enviaremos `test` en los demas campos
 
-![[Pasted image 20250206223603.png]]
+![image](Imágenes/20250206223603.png)
 
 Hay que pensar que hemos configurado un servidor `smtp` por el puerto `25` a nuestro host asi que podemos montar uno facilmente con `python` y estar en escucha
 
@@ -198,7 +198,7 @@ Al abrirlo en el navegador nos redirige a enviar el `mensaje`, enviamos cualquie
 
 [
 
-![[Pasted image 20250206223632.png]]
+![image](Imágenes/20250206223632.png)
 
 Al recibir la alerta encontramos que tenemos un problema, el `{{` se elimina por lo que no se representa la respuesta en el `output` como es que lo esperabamos
 
@@ -388,7 +388,7 @@ Insert flag: test
 
 Lo abrimos y decompilamos usando `ida` donde podemos ver algunas funciones entre ellas la base, `main` que a su derecha encontramos todo el codigo en `C`
 
-![[Pasted image 20250206223707.png]]
+![image](Imágenes/20250206223707.png)
 
 Analizaremos principalmente la función principal `main` donde hay cosas interesantes
 
@@ -783,4 +783,4 @@ FARADAY{__LKM-is-a-l0t-l1k3-an-0r@ng3__}
 root@erlenmeyer:/reptileRoberto#
 ```
 
-![[Pasted image 20250214114710.png]]
+![image](Imágenes/20250214114710.png)

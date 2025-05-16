@@ -1,4 +1,4 @@
-![[Pasted image 20250214114426.png]]
+![image](Imágenes/20250214114426.png)
 ### But we have SSL!?
 
 
@@ -27,15 +27,15 @@ PORT     STATE SERVICE
 
 Tenemos el puerto `443` abierto, esta corriendo un servicio `https`, en el navegador podemos ver una pagina `web` bastante simple aunque con varias pestañas en ella
 
-![[Pasted image 20250209052845.png]]
+![image](Imágenes/20250209052845.png)
 
 Podemos ver una pestaña `Staff` que realmente solo nos muestra algunos `usuarios`
 
-![[Pasted image 20250209052917.png]]
+![image](Imágenes/20250209052917.png)
 
 Al mirar el `codigo` fuente podemos ver directamente la primera `flag`, ademas nos estan mostrando `credenciales` validas para el portal de admin, `jay.teignton:admin`
 
-![[Pasted image 20250209052944.png]]
+![image](Imágenes/20250209052944.png)
   
 
 ### That shouldn't be there...
@@ -43,11 +43,11 @@ Al mirar el `codigo` fuente podemos ver directamente la primera `flag`, ademas n
 
 En `/Admin` podemos iniciar sesión con las `credenciales` encontradas en el codigo
 
-![[Pasted image 20250209053018.png]]
+![image](Imágenes/20250209053018.png)
 
 Ahora encontramos una pestaña con el nombre `Management` en donde encontramos una tabla con varios `productos` y tenemos la posibilidad de `agregar` uno nuevo
 
-![[Pasted image 20250209053042.png]]
+![image](Imágenes/20250209053042.png)
 
 Despues de buscar un rato encontramos una `inyeccion sql`, iniciamos enumerando el nombre de la `base de datos` actualmente en uso, nos devuelve `webapp`
 
@@ -56,7 +56,7 @@ Despues de buscar un rato encontramos una `inyeccion sql`, iniciamos enumerando 
 ```
 
   
-![[Pasted image 20250209053109.png]]
+![image](Imágenes/20250209053109.png)
 
 Enumerando las los objetos de `webapp` especificamente que sean del tipo `tablas` podemos encontrar una llamada `users` que generalmente contiene credenciales
 
@@ -64,7 +64,7 @@ Enumerando las los objetos de `webapp` especificamente que sean del tipo `tablas
 '+(select name from webapp..sysobjects where xtype = 'U' order by name offset 1 rows fetch next 1 rows only)+'  
 ```
 
-  ![[Pasted image 20250209053140.png]]
+  ![image](Imágenes/20250209053140.png)
 
 Al leer el campo `username` de la tabla users nos devuelve el usuario `abbie.buckfast`
 
@@ -72,7 +72,7 @@ Al leer el campo `username` de la tabla users nos devuelve el usuario `abbie.buc
 '+(select top 1 username from users order by username)+'  
 ```
 
-  ![[Pasted image 20250209053201.png]]
+  ![image](Imágenes/20250209053201.png)
 
 Hacemos lo mismo con el campo `password` y ahora nos devuelve `AMkru$3_f'/Q^7f?`
 
@@ -80,7 +80,7 @@ Hacemos lo mismo con el campo `password` y ahora nos devuelve `AMkru$3_f'/Q^7f?`
 '+(select top 1 password from users order by username)+'  
 ```
 
-  ![[Pasted image 20250209053242.png]]
+  ![image](Imágenes/20250209053242.png)
 
 Además de credenciales que encontramos tambien podemos encontrar la `flag`
 
@@ -89,7 +89,7 @@ Además de credenciales que encontramos tambien podemos encontrar la `flag`
 ```
 
 
-![[Pasted image 20250209053316.png]]
+![image](Imágenes/20250209053316.png)
 
 ### Have we met before?
 
@@ -124,23 +124,23 @@ ID           Response   Lines    Word       Chars       Payload
 
 Al abrir `/owa` en la web podemos ver un panel de `login` para Outlook Web Access
 
-![[Pasted image 20250209053342.png]]
+![image](Imágenes/20250209053342.png)
 
 Podemos iniciar sesión con las `credenciales` que hemos conseguido a traves de la `sql injection`, las cuales son las siguientes `abbie.buckfast:AMkru$3_f'/Q^7f?`
 
-![[Pasted image 20250209053402.png]]
+![image](Imágenes/20250209053402.png)
 
 Son válidas y conseguimos acceso aunque no tenemos ningun `correo` pendiente, sin embargo tenemos una pestaña donde podemos abrir el `email` de otro `usuario`
 
-![[Pasted image 20250209053431.png]]
+![image](Imágenes/20250209053431.png)
 
 Uno de los `usuarios` encontrados en el panel del inicio fue el usuario `jay.teignton` el cual tiene un `email` al cual podemos cambiar y leer todos sus `correos`
 
-![[Pasted image 20250209053452.png]]
+![image](Imágenes/20250209053452.png)
 
 En los correos `enviados` encontramos la `flag` en un correo que el usuario `jay.teignton` ha enviado a el usuario `andy.teignton` con el asunto `flag.txt`
 
-![[Pasted image 20250209053515.png]]
+![image](Imágenes/20250209053515.png)
 
   
 
@@ -149,7 +149,7 @@ En los correos `enviados` encontramos la `flag` en un correo que el usuario `jay
 
 En lo `correos` recibidos tenemos uno de `karl.memaybe` el cual nos dice que hubo un hackeo, ademas este nos comparte un `zip` con el `codigo fuente` del proyecto
 
-![[Pasted image 20250209053554.png]]
+![image](Imágenes/20250209053554.png)
 
 Analizando el `codigo` encontramos que este toma el valor de la cookie `Profile`, decodea su valor de `base64` y usa `JavaScriptSerializer` para deserializarla
 
@@ -211,7 +211,7 @@ PS C:\CTF\ysoserial>
 
 Ahora en la web principal creamos una `cookie` con el nombre `Profile` donde como valor le pasaremos todo nuestro `payload` serializado y encodeado en `base64`
 
-![[Pasted image 20250209053637.png]]
+![image](Imágenes/20250209053637.png)
 
 Al `recargar` la pagina recibimos una petición al archivo `shell.exe` esto significa que se ha ejecutado el `comando` y ha descargado el archivo exe que hemos creado
 
@@ -536,7 +536,7 @@ file: PE32 executable (DLL) (console) Intel 80386 Mono/.Net assembly, for MS Win
 
 Al abrir el `dll` con [dnspy](https://github.com/dnSpy/dnSpy) encontramos una función `BackupClients` la cual define `credenciales` a nivel de sistema para llamar mas adelante al archivo `clients.html`
 
-![[Pasted image 20250209053719.png]]
+![image](Imágenes/20250209053719.png)
 
 Las `credenciales` son a nivel de sistema y el puerto `5985`, asi que nos podemos conectar con `evil-winrm` y conseguir una `shell` como el usuario `jay.teignton`
 
@@ -581,7 +581,7 @@ PS C:\Users\jay.teignton\Documents>
 
 Al abrir el `exe` con `dnspy` encontramos una función `Start` que parece la principal
 
-![[Pasted image 20250209053747.png]]
+![image](Imágenes/20250209053747.png)
 
 La función inicia un `socket` en el puerto `7734`, despues comprueba que la función `CheckClientPassword` devuelva true si es asi pasa a la función `CheckClientCommand`
 
@@ -1034,4 +1034,4 @@ C:\Windows\system32>
 ```
 
 
-![[Pasted image 20250214114746.png]]
+![image](Imágenes/20250214114746.png)
