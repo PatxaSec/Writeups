@@ -1,4 +1,4 @@
-![image](Imágenes/20250214114325.png)
+![image](../Imágenes/20250214114325.png)
 ## Early Access
 
 Iniciamos la máquina escaneando los puertos de la máquina con nmap donde encontramos varios puertos abiertos, muchos de ellos son propios de un DC
@@ -1740,4 +1740,4 @@ PS C:\Users\Administrator\Documents>
 ```
 
 
-![image](Imágenes/20250214114817.png)
+![image](../Imágenes/20250214114817.png)
