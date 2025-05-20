@@ -70,12 +70,16 @@ To update the remote repository with the latest changes from your local reposito
 
 
 ```
-git add . 
+git add .
+```
+
+```
 git commit -m "Commit message"
 ```
 
 2. Push the changes to the remote repository:
 
-
-`git push origin main`
+```
+git push origin main
+```
 
