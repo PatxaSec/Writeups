@@ -1,7 +1,7 @@
 
 ---
 
-![image](../../../../../Imágenes/20250520144605.png)
+![image](../../../../Imágenes/20250520144605.png)
 
 La máquina **Puppy** de Hack The Box simula un entorno corporativo realista, en el que el atacante comienza con un acceso inicial proporcionado por el cliente, representado por un par de credenciales válidas. Este escenario reproduce una situación común en pentests internos, donde se parte con acceso limitado a la red o a una cuenta de bajo privilegio.
 
