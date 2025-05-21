@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WriteUps/htb/Fortress/AWS.md",
+                "file": "WriteUps/htb/Fortress/Faraday.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AWS"
+              "title": "Faraday"
             }
           }
         ]
@@ -165,6 +165,19 @@
   },
   "active": "fe96da3f0562dc0c",
   "lastOpenFiles": [
+    "WriteUps/htb/Fortress/sedMWrGfm",
+    "WriteUps/htb/Fortress/sedsauaRt",
+    "WriteUps/htb/Fortress/sedAkZSaX",
+    "WriteUps/htb/Fortress/sedfdZgbM",
+    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedY7t6Cl",
+    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedBPIOUa",
+    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedaDcYlm",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/sedmkJY7T",
+    "Imágenes/20250521165411.png",
+    "Imágenes/Pasted image 20250521165411.png",
+    "Imágenes/20250521164230.png",
+    "WriteUps/htb/Fortress/Faraday.md",
+    "WriteUps/htb/Fortress/AWS.md",
     "WriteUps/htb/Fortress/Synacktiv.md",
     "Imágenes/Pasted image 20250521164946.png",
     "Imágenes/Pasted image 20250521164932.png",
@@ -173,23 +186,11 @@
     "Imágenes/Pasted image 20250521164837.png",
     "Imágenes/Pasted image 20250521164829.png",
     "Imágenes/Pasted image 20250521164809.png",
-    "Imágenes/Pasted image 20250521164759.png",
-    "Imágenes/Pasted image 20250521164731.png",
-    "Imágenes/Pasted image 20250521164713.png",
-    "WriteUps/htb/Fortress/Faraday.md",
     "WriteUps/htb/Fortress/Context.md",
-    "WriteUps/htb/Fortress/AWS.md",
     "WriteUps/htb/Fortress/Akerva.md",
     "WriteUps/htb/Fortress/sedw0lJvz",
     "WriteUps/htb/Fortress/sedvwEpyu",
     "WriteUps/htb/Fortress/sed5yNPq5",
-    "WriteUps/htb/Fortress/sednlrjjP",
-    "WriteUps/htb/Fortress/sedlMUnUR",
-    "WriteUps/htb/Fortress/sedCIe5K5",
-    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedkieMCO",
-    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedtzdcEL",
-    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedkKdIcF",
-    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/sedVRPfFw",
     "WriteUps/htb/Fortress/Jet.md",
     "WriteUps/htb/Maquinas/medium/Puppy.md",
     "0. CAPE/3. Envenenamiento LLMNR, NBT-S.md",

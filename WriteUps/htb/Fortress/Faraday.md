@@ -28,7 +28,7 @@ Password:
 
 En la `web` tenemos una página que también nos pide `credenciales` sin embargo tenemos la posibilidad de `registrarnos` para despues poder iniciar sesión
 
-![image](../../../Imágenes/20250521164230.png)
+![image](../../../Imágenes/20250521165411.png)
 
 Podemos simplemente registrarnos como el usuario `test` y con la contraseña `test`
 
