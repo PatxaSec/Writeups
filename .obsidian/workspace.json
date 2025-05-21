@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "820af975cb30cd7c",
+        "id": "6aad9a869dbee579",
         "type": "tabs",
         "children": [
           {
-            "id": "a93b0d4d9a7166c2",
+            "id": "fe96da3f0562dc0c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WriteUps/htb/Maquinas/medium/Puppy.md",
+                "file": "WriteUps/htb/Fortress/AWS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Puppy"
+              "title": "AWS"
             }
           }
         ]
@@ -163,44 +163,44 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "a93b0d4d9a7166c2",
+  "active": "fe96da3f0562dc0c",
   "lastOpenFiles": [
+    "WriteUps/htb/Fortress/Synacktiv.md",
+    "Imágenes/Pasted image 20250521164946.png",
+    "Imágenes/Pasted image 20250521164932.png",
+    "Imágenes/Pasted image 20250521164911.png",
+    "Imágenes/Pasted image 20250521164847.png",
+    "Imágenes/Pasted image 20250521164837.png",
+    "Imágenes/Pasted image 20250521164829.png",
+    "Imágenes/Pasted image 20250521164809.png",
+    "Imágenes/Pasted image 20250521164759.png",
+    "Imágenes/Pasted image 20250521164731.png",
+    "Imágenes/Pasted image 20250521164713.png",
+    "WriteUps/htb/Fortress/Faraday.md",
+    "WriteUps/htb/Fortress/Context.md",
+    "WriteUps/htb/Fortress/AWS.md",
+    "WriteUps/htb/Fortress/Akerva.md",
+    "WriteUps/htb/Fortress/sedw0lJvz",
+    "WriteUps/htb/Fortress/sedvwEpyu",
+    "WriteUps/htb/Fortress/sed5yNPq5",
+    "WriteUps/htb/Fortress/sednlrjjP",
+    "WriteUps/htb/Fortress/sedlMUnUR",
+    "WriteUps/htb/Fortress/sedCIe5K5",
+    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedkieMCO",
+    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedtzdcEL",
+    "1. Hacking Cheaatsheets/2. Explotación y pivoting/sedkKdIcF",
+    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/sedVRPfFw",
     "WriteUps/htb/Fortress/Jet.md",
+    "WriteUps/htb/Maquinas/medium/Puppy.md",
     "0. CAPE/3. Envenenamiento LLMNR, NBT-S.md",
     "0. CAPE/2. Initial Enumeration.md",
-    "WriteUps/htb/Maquinas/medium/sedpsoZlw",
-    "WriteUps/htb/Fortress/sedYH42qV",
-    "WriteUps/htb/Fortress/sedjTvVmH",
-    "WriteUps/htb/Fortress/sedrXsKKv",
-    "WriteUps/htb/Fortress/sedvK8JXG",
-    "9. Tips & Tricks/sedlTi9YD",
-    "8. Wi-Fi/sed6Dkxtr",
-    "8. Wi-Fi/sedOYs5Gv",
-    "7. Web/3.- Post-Explotación/sedV5gJxG",
-    "WriteUps/htb/Fortress/sedAtn1Wn",
-    "WriteUps/htb/Maquinas/medium/Puppy.md",
     "0. CAPE/4. Password Spray.md",
     "0. CAPE/5. Controles de seguridad.md",
     "0. CAPE/6. Enumerar Credenciales.md",
-    "Imágenes/20250508102917.png",
-    "Imágenes/20250508103027.png",
-    "Imágenes/20250508130100.png",
-    "Imágenes/20250508132002.png",
-    "Imágenes/20250508133457.png",
-    "Imágenes/20250508135746.png",
-    "Imágenes/20250509125751.png",
-    "Imágenes/20250515104345.png",
-    "Imágenes/20250520162908.png",
-    "Imágenes/20250521001000.png",
     "1. Hacking Cheaatsheets/2. Explotación y pivoting/4. Directorio Activo.md",
     "1. Hacking Cheaatsheets/2. Explotación y pivoting/2. Atacando Servicios comunes.md",
     "3. Develop/BBDD/SQLITE.md",
     "3. Develop/BBDD/MySQL.md",
-    "WriteUps/htb/Fortress/Synacktiv.md",
-    "WriteUps/htb/Fortress/Akerva.md",
-    "WriteUps/htb/Fortress/Context.md",
-    "WriteUps/htb/Fortress/AWS.md",
-    "WriteUps/htb/Fortress/Faraday.md",
     "0. Tips & Tricks/TTY.md",
     "Writeups/HTB/ProLabs/Solar.md",
     "Writeups/HTB/ProLabs/FullHouse.md",
@@ -209,7 +209,6 @@
     "Writeups/HTB/Fortress/Faraday.md",
     "Writeups/HTB/Fortress/Context.md",
     "Writeups/HTB/Fortress/AWS.md",
-    "3. Develop/git.md",
-    "1. Hacking Cheaatsheets/1. Reconocimiento, enumeración y ataque/Servicios/Windows Remote management.md"
+    "3. Develop/git.md"
   ]
 }

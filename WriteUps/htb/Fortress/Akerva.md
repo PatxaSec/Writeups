@@ -2,9 +2,6 @@
 
 ### Plain Sight
 
-#### AKERVA{Ikn0w_F0rgoTTEN#CoMmeNts}
-
-  
 
 Iniciamos la máquina escaneando los puertos de la máquina con `nmap` donde encontramos 3 puertos abiertos entre ellos `ssh`, y 2 servicios `http`
 
@@ -21,24 +18,11 @@ PORT     STATE SERVICE
 
 Abrimos el servicio `http` en el navegador y vemos una página bastante simple
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/1.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/1.png)
+![image](../../../Imágenes/20250521155521.png)
 
 Mirando el `código fuente` podemos ver la primera `flag` dentro de un `comentario`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/2.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/2.png)
-
+![image](../../../Imágenes/20250521155758.png)
 Podemos verlo desde consola lanzando un `curl` y grepeando por la cadena `AKERVA`
 
 ```
@@ -46,15 +30,8 @@ Podemos verlo desde consola lanzando un `curl` y grepeando por la cadena `AKERVA
 <!-- By the way, the first flag is: AKERVA{Ikn0w_F0rgoTTEN#CoMmeNts} -->  
 ```
 
-  
-
-  
-
 ### Take a Look Around
-
-#### AKERVA{IkN0w_SnMP@@@MIsconfigur@T!onS}
-
-  
+ 
 
 Como escaneo alternativo con `nmap` podemos buscar puertos abiertos por `UDP`, como tiende a ser bastante `lento` solo escanearemos los `100` más comunes
 
@@ -74,15 +51,8 @@ Tenemos `snmp` abierto, usaremos `snmpbulkwalk` usando `public` como contraseña
 iso.3.6.1.2.1.25.4.2.1.5.1254 = STRING: "/var/www/html/scripts/backup_every_17minutes.sh AKERVA{IkN0w_SnMP@@@MIsconfigur@T!onS}"  
 ```
 
-  
-
-  
-
 ### Dead Poets
 
-#### AKERVA{IKNoW###VeRbTamper!nG_==}
-
-  
 
 Además de la flag podemos ver una `ruta` de un script de bash lekeada, suponiendo que la web esta montada en `/var/www/html` podemos cambiar esa parte por la `ip`
 
@@ -149,9 +119,6 @@ done
   
 
 ### Now You See Me
-
-#### AKERVA{1kn0w_H0w_TO_$Cr1p_T_$$$$$$$$}
-
   
 
 Analizemos el script, iniciamos sabiendo que hay un directorio `/backups` en la web
@@ -355,15 +322,8 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000', debug = True)
 ```
 
-  
-
-  
-
 ### Open Book
 
-#### AKERVA{IKNOW#LFi_@_}
-
-  
 
 Si miramos el final del script este monta un servidor `http` por el puerto `5000`
 
@@ -375,13 +335,7 @@ app.run(host='0.0.0.0', port='5000', debug = True)
 
 El puerto esta abierto asi que el servicio del script esta corriendo, sin embargo vemos que no tenemos acceso ya que nos pide `credenciales` para ver el contenido
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/3.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/3.png)
+![image](../../../Imágenes/20250521160955.png)
 
 En el codigo podemos ver la función `verify_password` que llama a la variable `users`, la cual tiene como credenciales el usuario `aas` y la contraseña es `flag`
 
@@ -401,23 +355,11 @@ def verify_password(username, password):
 
 Significa que podemos iniciar sesión como `aas` usando la `flag` como contraseña
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/4.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/4.png)
+![image](../../../Imágenes/20250521161018.png)
 
 Al autenticarnos solo podemos ver un `Hello, World!` que si leemos el codigo es lo que esta definido en el `script` que se muestre cuando se apunte a la ruta `/`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/5.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/5.png)
+![image](../../../Imágenes/20250521161040.png)
 
 ```
 @app.route('/')
@@ -446,13 +388,7 @@ def file():
 
 Significa que si apuntamos con algo como `/file?filename=/etc/passwd` deberiamos poder leer el contenido del `/etc/passwd`, tenemos un `Local File Inclusion`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/6.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/6.png)
+![image](../../../Imágenes/20250521161105.png)
 
 Podemos automatizar esto en un `script` de python donde definimos la `ruta`, las `credenciales` y el parametro `filename` pasandole el primer `argumento` como valor
 
@@ -493,15 +429,8 @@ Podemos ver el `home` del usuario `aas`, daremos por hecho que la flag que llama
 AKERVA{IKNOW#LFi_@_}
 ```
 
-  
-
-  
-
 ### Say Friend and Enter
 
-#### AKERVA{IkNOW#=ByPassWerkZeugPinC0de!}
-
-  
 
 Fuzzeando directorios en el puerto 5000 con `wfuzz` encontramos un `/console`
 
@@ -527,13 +456,7 @@ ID           Response   Lines    Word       Chars       Payload
 
 Lo miramos desde el navegador y es una consola de `Werkzeug`, necesitamos un `pin`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/7.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/7.png)
+![image](../../../Imágenes/20250521161141.png)
 
 Buscando en [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/werkzeug) encontramos un script para generar el `pin`, sin embargo tenemos que cambiar algunas cosas iniciando por el `username` que sabemos es `aas`
 
@@ -653,63 +576,27 @@ Al ejecutarlo conseguimos computar el `pin` para desbloquear el `/console`
 
 Enviamos el `pin` que conseguimos con el script, al hacerlo desbloqueamos la consola de `werkzeug` donde podemos ejecutar comandos en `python`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/8.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/8.png)
+![image](../../../Imágenes/20250521161209.png)
 
 Importamos la libreria `os` e intentamos ejecutar el comando `whoami` con `system`, sin embargo no nos devuelve el output si no el codigo de estado que es `0`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/10.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/10.png)
+![image](../../../Imágenes/20250521161230.png)
 
 Podemos jugar con `popen` para ejecutar el comando y `read` para leer el output
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/11.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/11.png)
+![image](../../../Imágenes/20250521161248.png)
 
 Con `strip` quitamos el salto de linea, lo metemos dentro de `print` para verlo mejor
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/14.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/14.png)
+![image](../../../Imágenes/20250521161308.png)
 
 Con `ls -la` vemos un archivo oculto llamado `.hiddenflag,txt` asi que la leemos
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/15.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/15.png)
+![image](../../../Imágenes/20250521161329.png)
 
 Aunque para estar mas comodo con `system` nos enviamos una revshell de `bash`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/12.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/12.png)
+![image](../../../Imágenes/20250521161356.png)
 
 Recibimos la shell como `aas` y podemos leer nuevamente la `flag` que vimos antes
 
@@ -726,15 +613,8 @@ AKERVA{IkNOW#=ByPassWerkZeugPinC0de!}
 aas@Leakage:~$
 ```
 
-  
-
-  
-
 ### Super Mushroom
 
-#### AKERVA{IkNow_Sud0_sUckS!}
-
-  
 
 Si miramos la versión de `sudo` encontramos que esta corriendo una version `antigua`
 
@@ -814,15 +694,8 @@ AKERVA{IkNow_Sud0_sUckS!}
 root@Leakage:~#
 ```
 
-  
-
-  
-
 ### Little Secret
 
-#### AKERVA{IKNOOOWVIGEEENERRRE}
-
-  
 
 Además de la flag podemos encontrar un archivo con el nombre `secured_note.md`
 
@@ -852,13 +725,7 @@ root@Leakage:~#
 
 Esta usando cifrado `Vigenère` asi que podemos usar [dcode.fr](https://www.dcode.fr/vigenere-cipher) para decodear el mensaje, sabemos que la flag inicia por `AKERVA` asi que usamos `plaintext`, tambien quitamos `B,J,Q,X,Z` ya que no estan en el mensaje asi que nos quedaria `ACDEFGHIKLMNOPRSTUVWY`, el darle a `decrypt` conseguimos un mensaje
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/akerva/13.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/akerva/13.png)
+![image](../../../Imágenes/20250521161458.png)
 
 Podemos arreglar un poco la `cadena` para obtener un mensaje legible, recibimos una felicitación por completarlo y tambien se nos indica la forma de la `flag`
 

