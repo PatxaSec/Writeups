@@ -1227,7 +1227,6 @@ network_admin@core01:~$
 ```
 
   
-
 Podemos simplemente usar un exploit del [pwnkit](https://github.com/joeammond/CVE-2021-4034) y al ejecutarlo ganamos una shell como el usuario `root`, curiosamente desde esta si que podemos leer la `flag`
 
 ```
