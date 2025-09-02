@@ -1217,9 +1217,6 @@ Al ejecutar el programa este nos devuelve un `json` bastante extenso con diferen
   
 
 ### Member Manager
-
-#### JET{h34p_f0r_73h_b4bi3z}
-
   
 
 Teniamos la contraseña del `zip` al decifrar el mensaje `xor`, asi que simplemente lo descomprimimos, al hacerlo este nos deja 2 archivos `ejecutables` de linux
