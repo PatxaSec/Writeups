@@ -1,66 +1,296 @@
 
+## 🔹 1. Hola Mundo
 
-**Variables y Tipos de Datos**
+📘 **Teoría**
 
-|Tipo de Dato|Descripción|Ejemplo|
+- Todo programa en C comienza con la función `main()`.
+    
+- Se usa `#include <stdio.h>` para funciones de entrada/salida (`printf`, `scanf`).
+    
+
+💻 **Ejemplo de código**
+
+```c
+// Hola Mundo
+#include <stdio.h>
+
+int main() {
+    printf("Hola, mundo!\n");
+    return 0;
+}
+```
+
+---
+
+## 🔹 2. Tipos de datos y variables
+
+📘 **Teoría**
+
+- Los **tipos primitivos** dependen del compilador y arquitectura.
+    
+- Desde C99, se pueden usar enteros de ancho fijo (`int32_t`, `uint64_t`).
+    
+- Existen alias definidos en Windows API (`BYTE`, `WORD`, `DWORD`, `QWORD`).
+    
+
+📊 **Tabla resumen**
+
+|Tipo en C|Tamaño típico|Ejemplo|
 |---|---|---|
-|`int`|Entero|`int x = 5;`|
-|`float`|Número de punto flotante|`float y = 3.14;`|
-|`char`|Carácter|`char c = 'a';`|
-|`double`|Número de punto flotante de doble precisión|`double z = 3.14159;`|
-|`void`|Sin valor|`void *ptr;`|
+|`char`|1 byte|`'A'`|
+|`int`|4 bytes|`42`|
+|`float`|4 bytes|`3.14f`|
+|`double`|8 bytes|`2.718`|
+|`bool` (C99)|1 byte|`true/false`|
+|`int32_t`|4 bytes|`-12345`|
+|`uint64_t`|8 bytes|`123456ULL`|
 
-**Operadores**
+📊 **Tabla de alias Windows API**
 
-|Operador|Descripción|Ejemplo|
+|Alias|Equivalente en C|Tamaño|
 |---|---|---|
-|`+`|Adición|`int x = 5; int y = x + 3;`|
-|`-`|Sustracción|`int x = 5; int y = x - 3;`|
-|`*`|Multiplicación|`int x = 5; int y = x * 3;`|
-|`/`|División|`int x = 5; int y = x / 3;`|
-|`%`|Módulo|`int x = 5; int y = x % 3;`|
-|`==`|Igualdad|`int x = 5; if (x == 5) { ... }`|
-|`!=`|Desigualdad|`int x = 5; if (x != 5) { ... }`|
-|`>`|Mayor que|`int x = 5; if (x > 3) { ... }`|
-|`<`|Menor que|`int x = 5; if (x < 3) { ... }`|
-|`>=`|Mayor o igual que|`int x = 5; if (x >= 3) { ... }`|
-|`<=`|Menor o igual que|`int x = 5; if (x <= 3) { ... }`|
+|`BYTE`|`unsigned char`|1 byte|
+|`WORD`|`unsigned short`|2 bytes|
+|`DWORD`|`unsigned long`|4 bytes|
+|`QWORD`|`unsigned long long`|8 bytes|
 
-**Estructuras de Control**
+💻 **Ejemplo de código**
 
-|Estructura de Control|Descripción|Ejemplo|
-|---|---|---|
-|`if`|Declaración condicional|`if (x > 5) { ... }`|
-|`if-else`|Declaración condicional con alternativa|`if (x > 5) { ... } else { ... }`|
-|`switch`|Declaración de selección|`switch (x) { case 1: ...; break; case 2: ...; break; }`|
-|`while`|Bucle while|`int x = 0; while (x < 5) { ...; x++; }`|
-|`for`|Bucle for|`for (int x = 0; x < 5; x++) { ... }`|
-|`do-while`|Bucle do-while|`int x = 0; do { ...; x++; } while (x < 5);`|
+```c
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <windows.h>
 
-**Funciones**
+int main() {
+    int entero = 42;
+    float real = 3.14f;
+    bool ok = true;
+    DWORD id = 12345; // Windows API
 
-|Función|Descripción|Ejemplo|
-|---|---|---|
-|`main`|Punto de entrada del programa|`int main() { ... }`|
-|`printf`|Imprimir salida formateada|`printf("Hola, mundo!\n");`|
-|`scanf`|Leer entrada formateada|`scanf("%d", &x);`|
-|`malloc`|Asignación de memoria dinámica|`int *ptr = malloc(sizeof(int));`|
-|`free`|Liberación de memoria dinámica|`free(ptr);`|
+    printf("int=%d, float=%f, bool=%d, DWORD=%lu\n", entero, real, ok, id);
+    return 0;
+}
+```
 
-**Arreglos y Cadenas**
+---
 
-|Arreglo/Cadena|Descripción|Ejemplo|
-|---|---|---|
-|`array`|Declaración de arreglo|`int arr[5];`|
-|`string`|Declaración de cadena|`char str[10];`|
-|`strlen`|Longitud de cadena|`char str[] = "hola"; int len = strlen(str);`|
-|`strcpy`|Copia de cadena|`char str1[] = "hola"; char str2[10]; strcpy(str2, str1);`|
-|`strcmp`|Comparación de cadenas|`char str1[] = "hola"; char str2[] = "mundo"; if (strcmp(str1, str2) == 0) { ... }`|
+## 🔹 3. Operadores
 
-**Punteros**
+📘 **Teoría**  
+Los operadores permiten manipular datos.  
+Tipos principales:
 
-| Puntero | Descripción                  | Ejemplo                                                        |
-| ------- | ---------------------------- | -------------------------------------------------------------- |
-| `*`     | Operador de desreferencia    | `int x = 5; int *ptr = &x; int y = *ptr;`                      |
-| `&`     | Operador de dirección        | `int x = 5; int *ptr = &x;`                                    |
-| `->`    | Operador de acceso a miembro | `struct Persona { int edad; }; struct Persona p; p.edad = 25;` |
+- **Aritméticos**: `+ - * / %`
+    
+- **Relacionales**: `< <= > >= == !=`
+    
+- **Lógicos**: `&& || !`
+    
+- **Bitwise**: `& | ^ ~ << >>`
+    
+- **Asignación**: `= += -= *= /= %=`
+    
+
+💻 **Ejemplo de código**
+
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 5, b = 2;
+
+    printf("Suma: %d\n", a + b);
+    printf("Resta: %d\n", a - b);
+    printf("Multiplicación: %d\n", a * b);
+    printf("División: %d\n", a / b);
+    printf("Módulo: %d\n", a % b);
+
+    printf("Mayor: %d\n", a > b);
+    printf("Igual: %d\n", a == b);
+    return 0;
+}
+```
+
+---
+
+## 🔹 4. Condicionales
+
+📘 **Teoría**  
+Los condicionales permiten ejecutar código dependiendo de una condición booleana.
+
+- `if`, `else if`, `else`
+    
+- `switch (var) { case ... }`
+    
+
+💻 **Ejemplo de código**
+
+```c
+#include <stdio.h>
+
+int main() {
+    int edad;
+    printf("Ingrese su edad: ");
+    scanf("%d", &edad);
+
+    if (edad >= 18) {
+        printf("Eres mayor de edad.\n");
+    } else {
+        printf("Eres menor de edad.\n");
+    }
+    return 0;
+}
+```
+
+---
+
+## 🔹 5. Bucles
+
+📘 **Teoría**  
+Permiten repetir un bloque de código:
+
+- `for` → número definido de iteraciones.
+    
+- `while` → mientras la condición sea verdadera.
+    
+- `do while` → se ejecuta al menos una vez.
+    
+
+💻 **Ejemplo de código**
+
+```c
+#include <stdio.h>
+
+int main() {
+    // For
+    for (int i = 1; i <= 5; i++) {
+        printf("For: %d\n", i);
+    }
+
+    // While
+    int j = 1;
+    while (j <= 5) {
+        printf("While: %d\n", j);
+        j++;
+    }
+
+    // Do While
+    int k = 1;
+    do {
+        printf("Do While: %d\n", k);
+        k++;
+    } while (k <= 5);
+
+    return 0;
+}
+```
+
+---
+
+## 🔹 6. Funciones
+
+📘 **Teoría**
+
+- Una función tiene **prototipo**, **definición** y **llamada**.
+    
+- Los parámetros se pasan **por valor** o **por referencia** (puntero).
+    
+
+💻 **Ejemplo de código**
+
+```c
+#include <stdio.h>
+
+// Prototipo
+int suma(int a, int b);
+
+int main() {
+    int resultado = suma(3, 4);
+    printf("La suma es: %d\n", resultado);
+    return 0;
+}
+
+// Definición
+int suma(int a, int b) {
+    return a + b;
+}
+```
+
+---
+
+## 🔹 7. Estructuras (`struct`)
+
+📘 **Teoría**
+
+- Agrupan varios tipos de datos bajo un mismo nombre.
+    
+- Pueden usarse con `typedef`.
+    
+
+💻 **Ejemplo de código**
+
+```c
+#include <stdio.h>
+
+struct Persona {
+    char nombre[20];
+    int edad;
+};
+
+int main() {
+    struct Persona p1 = {"Ana", 25};
+    printf("Nombre: %s, Edad: %d\n", p1.nombre, p1.edad);
+    return 0;
+}
+```
+
+---
+
+## 🔹 8. Módulos (archivos separados)
+
+📘 **Teoría**
+
+- C permite dividir el código en varios archivos.
+    
+- Un `.h` (cabecera) declara funciones/variables.
+    
+- Un `.c` (implementación) define las funciones.
+    
+- El archivo principal incluye el `.h`.
+    
+
+💻 **Ejemplo de código**
+
+**main.c**
+
+```c
+#include <stdio.h>
+#include "operaciones.h"
+
+int main() {
+    int resultado = sumar(5, 7);
+    printf("Resultado: %d\n", resultado);
+    return 0;
+}
+```
+
+**operaciones.h**
+
+```c
+int sumar(int a, int b);
+```
+
+**operaciones.c**
+
+```c
+int sumar(int a, int b) {
+    return a + b;
+}
+```
+
+📌 Compilación:
+
+```bash
+gcc main.c operaciones.c -o programa
+```
