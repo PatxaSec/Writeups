@@ -1,5 +1,5 @@
 
-![[Pasted image 20251113122758.png]]
+![image](../../Imágenes/20251113122758.png)
 
 ---
 
