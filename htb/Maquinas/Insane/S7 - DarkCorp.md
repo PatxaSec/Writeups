@@ -1,7 +1,7 @@
 
 ---
 
-![image](../../../../Imágenes/20250521170249.png)
+![image](../../../Imágenes/20250521170249.png)
 
 Una máquina Windows, donde primero leemos correos vía XSS en Roundcube, realizamos SQL Injection en el portal interno y encontramos las credenciales del sistema Linux.
 Para capturar el dominio, se utilizó una ruta que considero no intencionada mediante fuerza bruta de una cuenta capaz de modificar la política de grupo.
