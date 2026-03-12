@@ -1,2 +1,4 @@
+# Ignore Obsidian config
 .obsidian/
-PDFs/*
+# Ignore HackTheBox Fortress writeups
+htb/Fortress/
