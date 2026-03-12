@@ -42,34 +42,34 @@ echo "10.10.11.54 drip.htb" | sudo tee -a /etc/hosts
 
 Veamos el servicio de correo Roundcube en la captura de pantalla:
 
-![image](../../../../Imágenes/20250521170608.png)
+![image](../../../Imágenes/20250521170608.png)
 
 Podemos registrar una cuenta y también enviarnos una carta desde el sitio:
 
-![image](../../../../Imágenes/20250521170623.png)
+![image](../../../Imágenes/20250521170623.png)
 
 Hacemos clic en "Sign In" y vemos el dominio `mail.drip.htb`, lo añadimos a `/etc/hosts`.
 
-![image](../../../../Imágenes/20250521170703.png)
+![image](../../../Imágenes/20250521170703.png)
 
 Intentamos registrar una cuenta e intentamos iniciar sesión.
 
-![image](../../../../Imágenes/20250521170730.png)
+![image](../../../Imágenes/20250521170730.png)
 
-![image](../../../../Imágenes/20250521170745.png)
+![image](../../../Imágenes/20250521170745.png)
 
 Mirando las cabeceras del email que tenemos, podemos observar el dominio `drip.darkcorp.htb` 
 
-![image](../../../../Imágenes/20250521170818.png)
+![image](../../../Imágenes/20250521170818.png)
 
 Intentamos enviarnos una carta desde un formulario del sitio e interceptar la solicitud a través de Burp Suite:
 
-![image](../../../../Imágenes/20250521170838.png)
+![image](../../../Imágenes/20250521170838.png)
 
 Cambiamos por nuestra dirección fr34ker@drip.htb y obtendremos una carta en la que veremos la dirección de
 otro usuario bcase@drip.htb :
 
-![image](../../../../Imágenes/20250521170901.png)
+![image](../../../Imágenes/20250521170901.png)
 
 Esta versión de Roundcube permite hacer XSS con 0-click. Por lo tanto, utilizamos el CVE-2024-42008
 entendiendo las descripciones de este artículo.
@@ -174,32 +174,32 @@ El script envía un correo XSS al usuario bcase@drip.htb en nombre de root y nos
 `python3 exploit.py 1`
 
 - correo 1
-![image](../../../../Imágenes/20250521171333.png)
+![image](../../../Imágenes/20250521171333.png)
 - correo2
-![image](../../../../Imágenes/20250521171348.png)
+![image](../../../Imágenes/20250521171348.png)
 - correo3
-![image](../../../../Imágenes/20250521171400.png)
+![image](../../../Imágenes/20250521171400.png)
 
 Añadimos el dominio `dev-a3f1-01.drip.htb` al `/etc/hosts`.
 
 - correo 4
-![image](../../../../Imágenes/20250521171412.png)
+![image](../../../Imágenes/20250521171412.png)
 
 Ahora que no hay correos, enviamos el email de reuperación desde el dominio anteriormente añadido `dev-a3f1-01.drip.htb` , al usuario bcase@drip.htb y ejecutamos de nuevo con el mismo id.
 
-![image](../../../../Imágenes/20250521171549.png)
+![image](../../../Imágenes/20250521171549.png)
 
-![image](../../../../Imágenes/20250521171601.png)
+![image](../../../Imágenes/20250521171601.png)
 
 Accedemos a la URL y ponemos una passwd.
 
-![image](../../../../Imágenes/20250521171628.png)
+![image](../../../Imágenes/20250521171628.png)
 
-![image](../../../../Imágenes/20250521171641.png)
+![image](../../../Imágenes/20250521171641.png)
 
 en `analitics` podemos ver un imput:
 
-![image](../../../../Imágenes/20250521171723.png)
+![image](../../../Imágenes/20250521171723.png)
 
 Donde añadiendo una query de postgress conseguimos realizar un SQLi. Lo cual sabemos por el dominio descubierto anteriormente y en el cual enontramos un `. venv` en:
 
@@ -242,7 +242,7 @@ Sabiendo esto, probamos primero si es vulnerable:
 ''; SELECT pg_read_file('/etc/passwd', 0, 2000);
 ```
 
-![image](../../../../Imágenes/20250521171942.png)
+![image](../../../Imágenes/20250521171942.png)
 
 viendo que lo es, inyectamos la siguiente query para traernos una revshell, escuchando con nc:
 
@@ -257,9 +257,9 @@ BEGIN
 END $$;
 ```
 
-![image](../../../../Imágenes/20250521172047.png)
+![image](../../../Imágenes/20250521172047.png)
 
-![image](../../../../Imágenes/20250521172058.png)
+![image](../../../Imágenes/20250521172058.png)
 
 Es muy importante en este punto, encontrar un archivo `dev-dripmail.old.sql.pgp` con contraseñas para poder avanzar mas adelante. Dado que volver hacia atras como hice yo no es muy comodo...
 
@@ -272,15 +272,15 @@ gpg --use-agent --decrypt /var/backups/postgres/dev-dripmail.old.sql.gpg > dev-d
 
 y mirando dentro, podemos ver tres hashes:
 
-![image](../../../../Imágenes/20250521172235.png)
+![image](../../../Imágenes/20250521172235.png)
 
 y en `/var/log/postgresql/postgresql-15-main.log`. Podremos encontrar tambien el hash de `ebelford`.
 
-![image](../../../../Imágenes/20250521172326.png)
+![image](../../../Imágenes/20250521172326.png)
 
 Una vez adquiridos las passwd de dos usuarios, nos conectamos por ssh a ebelford haciendo port forwarding al rango `172.16.20.0/24`, dado que sabemos la ip interna de la máquina y las IP de las máquinas a las que llegamos:
 
-![image](../../../../Imágenes/20250521172426.png)
+![image](../../../Imágenes/20250521172426.png)
 
 Añadimos los dominios al /etc/hosts de forma que queden:
 
@@ -338,15 +338,15 @@ Servicios HTTP de WEB-01:
 
 - puerto 80
 
-![image](../../../../Imágenes/20250521173022.png)
+![image](../../../Imágenes/20250521173022.png)
 
 - puerto 5000 (Autenticación básica con las credenciales de Victor)
 
-![image](../../../../Imágenes/20250521173046.png)
+![image](../../../Imágenes/20250521173046.png)
 
 Enumeramos Usuarios:
 
-![image](../../../../Imágenes/20250521173134.png)
+![image](../../../Imágenes/20250521173134.png)
 
 Dado que no vemos nada pero tenemos credenciales validas, configuramos proxychains para poder usar `bloodhound` y dumpearnos los datos: `sudo nano /etc/proxychains4.conf`
 
@@ -359,15 +359,15 @@ socks5 127.0.0.1 1080
 
 Nos conectamos haciendo port forwarding al puerto de proxichains:
 
-![image](../../../../Imágenes/20250521173253.png)
+![image](../../../Imágenes/20250521173253.png)
 
-![image](../../../../Imágenes/20250521173307.png)
+![image](../../../Imágenes/20250521173307.png)
 
 En `bloodhound` podemos ver que `taylor.b.adm` es miembro del grupo `gpo_manager` , que puede modificar la directiva `SecurityUpdates` :
 
-![image](../../../../Imágenes/20250521173501.png)
+![image](../../../Imágenes/20250521173501.png)
 
-![image](../../../../Imágenes/20250521173522.png)
+![image](../../../Imágenes/20250521173522.png)
 
 Hay un camino que parece el correcto mediante la explotación del servicio web en el puerto 5000.
 Que lleva a la obtención de una consola `ldap` con el usuario `svc_acc` , pero lo mejor que he conseguido es elevarla a `ldaps` y enumerar alguna cosa.
@@ -388,7 +388,7 @@ Seguiré intentando esa via dado que la que sigue parace demasiado sencilla como
 Este camino parece el menos obvio, hacer fuerza bruta al usuario taylor.b.adm
 Por política de contraseñas hacen falta 7 caracteres o mas:
 
-![image](../../../../Imágenes/20250521173720.png)
+![image](../../../Imágenes/20250521173720.png)
 
 Asique primero eliminaremos del rockyou las contraseñas de menos carácteres:
 
@@ -489,27 +489,27 @@ Descargar [PowerGPOAbuse.ps1](https://raw.githubusercontent.com/rootSySdk/PowerG
 
 En la máquina, descargamos y añadimos la política, e inmediatamente la aplicamos:
 
-![image](../../../../Imágenes/20250521174029.png)
+![image](../../../Imágenes/20250521174029.png)
 
-![image](../../../../Imágenes/20250521174040.png)
+![image](../../../Imágenes/20250521174040.png)
 
-![image](../../../../Imágenes/20250521174053.png)
+![image](../../../Imágenes/20250521174053.png)
 
 Con los permisos suficientes, dumpeamos los hashes:
 
-![image](../../../../Imágenes/20250521174123.png)
+![image](../../../Imágenes/20250521174123.png)
 
 ## root.txt
 
-![image](../../../../Imágenes/20250521174150.png)
+![image](../../../Imágenes/20250521174150.png)
 
 ## user.txt
 
 Para adquirir la user necesitamos primero dumpearnos los secrets de `web-01` mediante un `PtH` usando el hash de Administrador.
 
-![image](../../../../Imágenes/20250521174244.png)
+![image](../../../Imágenes/20250521174244.png)
 
-![image](../../../../Imágenes/20250521174253.png)
+![image](../../../Imágenes/20250521174253.png)
 
 ---
 
